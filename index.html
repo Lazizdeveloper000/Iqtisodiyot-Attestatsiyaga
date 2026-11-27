@@ -94,15 +94,15 @@
 <body class="min-h-screen flex flex-col justify-between">
 
     <!-- =====================================================
-         TOP HEADER (Profil, Natijalarim, Kalkulyator, Oq/Qora)
+         TOP HEADER (Faqat bitta Profil/Natijalarim kapsulasi)
          ===================================================== -->
     <header class="bg-white/85 dark:bg-[#08110E]/85 backdrop-blur-md border-b border-stone-200/80 dark:border-emerald-900/40 sticky top-0 z-30 transition-colors">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
+        <div class="max-w-7xl mx-auto px-3.5 sm:px-6 h-16 flex items-center justify-between gap-2">
             
             <!-- Left: Telegram User Profile Capsule -->
-            <div class="flex items-center gap-2.5 sm:gap-3">
+            <div class="flex items-center gap-2 sm:gap-3 min-w-0">
                 <button onclick="openProfileModal()" class="flex items-center gap-2.5 pl-1.5 pr-3.5 py-1 rounded-full bg-stone-100/90 dark:bg-emerald-950/70 hover:bg-emerald-50 dark:hover:bg-emerald-900/60 border border-stone-300/80 dark:border-emerald-700/50 transition-all cursor-pointer shrink-0 shadow-xs">
-                    <img id="headerAvatar" src="https://ui-avatars.com/api/?name=IQ&background=0C2D22&color=34D399&bold=true" alt="Profil" class="w-8 h-8 rounded-full object-cover border border-emerald-500/40">
+                    <img id="headerAvatar" src="https://ui-avatars.com/api/?name=IQ&background=0C2D22&color=34D399&bold=true" alt="Profil" style="width:32px;height:32px;min-width:32px;min-height:32px;" class="w-8 h-8 rounded-full object-cover border border-emerald-500/40 shrink-0">
                     <div class="text-left">
                         <div id="headerUserName" class="text-xs font-extrabold text-slate-900 dark:text-white leading-none max-w-[110px] sm:max-w-[150px] truncate">
                             Foydalanuvchi
@@ -114,34 +114,28 @@
                     </div>
                 </button>
 
-                <button id="topBackBtn" onclick="goHome()" class="hidden px-3 py-1.5 rounded-xl bg-stone-100 dark:bg-emerald-950/80 hover:bg-emerald-50 text-xs font-bold text-slate-700 dark:text-emerald-200 border border-stone-300 dark:border-emerald-800 items-center gap-1.5 transition-all cursor-pointer">
+                <button id="topBackBtn" onclick="goHome()" class="hidden px-2.5 py-1.5 rounded-xl bg-stone-100 dark:bg-emerald-950/80 hover:bg-emerald-50 text-xs font-bold text-slate-700 dark:text-emerald-200 border border-stone-300 dark:border-emerald-800 items-center gap-1 transition-all cursor-pointer shrink-0">
                     <i class="ph-bold ph-arrow-left"></i>
                     <span class="hidden md:inline">Ortga</span>
                 </button>
 
                 <div onclick="goHome()" class="hidden sm:flex items-center gap-2.5 cursor-pointer pl-2 border-l border-slate-200 dark:border-emerald-900/60">
-                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-600 to-pineDark text-white flex items-center justify-center font-mono font-extrabold text-sm shadow-sm">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-600 to-pineDark text-white flex items-center justify-center font-mono font-extrabold text-sm shadow-sm shrink-0">
                         IQ
                     </div>
-                    <div>
-                        <h1 class="text-sm font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+                    <div class="truncate">
+                        <h1 class="text-sm font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight truncate">
                             Iqtisodiyot Attestatsiya 2026
                         </h1>
-                        <p id="headerSubText" class="text-[11px] text-slate-500 dark:text-emerald-300/70 font-medium">
+                        <p id="headerSubText" class="text-[11px] text-slate-500 dark:text-emerald-300/70 font-medium truncate">
                             Yagona interaktiv test va imtihon platformasi
                         </p>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Controls -->
-            <div class="flex items-center gap-1.5 sm:gap-2">
-                <!-- Natijalarim tugmasi -->
-                <button onclick="openProfileModal()" class="px-3 py-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-800 dark:text-emerald-300 border border-emerald-500/30 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer">
-                    <i class="ph-fill ph-medal text-sm text-amber-500"></i>
-                    <span>Natijalarim</span>
-                </button>
-
+            <!-- Right Controls (Ortiqcha Natijalarim tugmasi olib tashlandi) -->
+            <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
                 <!-- Kalkulyator -->
                 <button onclick="openCalcModal()" class="px-3 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-800 dark:text-amber-300 border border-amber-500/30 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer">
                     <i class="ph-bold ph-calculator text-sm"></i>
@@ -351,7 +345,7 @@
                 <div id="quizNumberPills" class="flex flex-wrap items-center gap-1.5 pt-1"></div>
             </div>
 
-            <!-- TEST COMPLETED BANNER (Shows when all questions in topic are answered) -->
+            <!-- TEST COMPLETED BANNER -->
             <div id="quizFinishBanner" class="hidden neo-card p-5 border-2 border-emerald-500 bg-emerald-500/10 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div class="flex items-center gap-3.5">
                     <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-2xl shrink-0 shadow-md">
@@ -412,38 +406,40 @@
     </footer>
 
     <!-- =====================================================
-         1. YANGILANGAN "NATIJALARIM" MODAL OYNASI
+         1. TELEFONGA 100% MOSLASHTIRILGAN "NATIJALARIM" OYNASI
          ===================================================== -->
-    <div id="profileModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/65 backdrop-blur-xs p-4">
-        <div class="bg-white dark:bg-[#0D1915] w-full max-w-md rounded-3xl p-6 border border-slate-200 dark:border-emerald-800/60 shadow-2xl space-y-5">
+    <div id="profileModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-xs p-3 sm:p-4 overflow-y-auto">
+        <div class="bg-white dark:bg-[#0D1915] w-full max-w-sm sm:max-w-md rounded-3xl p-4 sm:p-5 border border-slate-200 dark:border-emerald-800/60 shadow-2xl space-y-4 my-auto">
             
-            <!-- User Header (Auto Telegram Info) -->
-            <div class="flex items-center justify-between gap-3">
-                <div class="flex items-center gap-3.5 min-w-0">
-                    <img id="modalAvatar" src="https://ui-avatars.com/api/?name=IQ&background=0C2D22&color=34D399&bold=true" alt="Avatar" class="w-15 h-15 rounded-full object-cover border-2 border-emerald-500 shadow-md">
+            <!-- User Header (Rasm 48x48px qilib qat'iy chegaralandi) -->
+            <div class="flex items-center justify-between gap-2.5">
+                <div class="flex items-center gap-3 min-w-0">
+                    <img id="modalAvatar" src="https://ui-avatars.com/api/?name=IQ&background=0C2D22&color=34D399&bold=true" alt="Avatar" style="width:48px;height:48px;min-width:48px;min-height:48px;" class="w-12 h-12 rounded-full object-cover border-2 border-emerald-500 shadow-sm shrink-0">
                     <div class="min-w-0">
-                        <h3 id="modalUserName" class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white truncate">Foydalanuvchi</h3>
-                        <p id="modalUserHandle" class="text-xs font-mono text-slate-500 dark:text-emerald-300/70 truncate">@username</p>
-                        <div class="mt-1 inline-flex items-center px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold">
-                            🔓 To'liq ochiq rejim
+                        <div class="flex items-center gap-2">
+                            <h3 id="modalUserName" class="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white truncate">Foydalanuvchi</h3>
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold shrink-0">
+                                🔓 Ochiq
+                            </span>
                         </div>
+                        <p id="modalUserHandle" class="text-xs font-mono text-slate-500 dark:text-emerald-300/70 truncate mt-0.5">@username</p>
                     </div>
                 </div>
-                <button onclick="closeProfileModal()" class="p-2 rounded-xl bg-stone-100 dark:bg-emerald-950 text-slate-500 hover:text-slate-800 dark:hover:text-white cursor-pointer">
-                    <i class="ph-bold ph-x"></i>
+                <button onclick="closeProfileModal()" class="w-8 h-8 rounded-xl bg-stone-100 dark:bg-emerald-950 text-slate-500 hover:text-slate-800 dark:hover:text-white flex items-center justify-center shrink-0 cursor-pointer">
+                    <i class="ph-bold ph-x text-sm"></i>
                 </button>
             </div>
 
-            <!-- Umumiy Ball va Aniqlik Bloki -->
-            <div class="p-4 rounded-2xl bg-gradient-to-r from-[#0C2D22] to-[#144937] text-white space-y-3 shadow-md border border-emerald-500/30">
+            <!-- Umumiy Ball va Aniqlik Bloki (Ixcham va chiroyli) -->
+            <div class="p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-[#0C2D22] to-[#144937] text-white space-y-2.5 shadow-md border border-emerald-500/30">
                 <div class="flex items-center justify-between">
                     <div>
-                        <span class="text-[11px] uppercase tracking-wider text-emerald-300 font-bold">Umumiy to'plangan ball</span>
-                        <div class="text-2xl sm:text-3xl font-extrabold font-mono text-amber-400 mt-0.5" id="modalTotalPoints">0 ball</div>
+                        <span class="text-[10px] uppercase tracking-wider text-emerald-300 font-bold">Umumiy ball</span>
+                        <div class="text-xl sm:text-2xl font-extrabold font-mono text-amber-400 leading-tight" id="modalTotalPoints">0 ball</div>
                     </div>
                     <div class="text-right">
-                        <span class="text-[11px] uppercase tracking-wider text-emerald-300 font-bold">Aniqlik darajasi</span>
-                        <div class="text-xl sm:text-2xl font-extrabold font-mono text-emerald-300 mt-0.5" id="modalAccuracyPct">0%</div>
+                        <span class="text-[10px] uppercase tracking-wider text-emerald-300 font-bold">Aniqlik</span>
+                        <div class="text-lg sm:text-xl font-extrabold font-mono text-emerald-300 leading-tight" id="modalAccuracyPct">0%</div>
                     </div>
                 </div>
 
@@ -452,50 +448,50 @@
                     <div id="modalAccuracyBar" class="h-full bg-emerald-400 transition-all duration-300 rounded-full" style="width: 0%"></div>
                 </div>
 
-                <div class="grid grid-cols-3 gap-2 pt-1 text-center text-xs">
-                    <div class="bg-white/10 rounded-xl py-1.5 px-2">
+                <div class="grid grid-cols-3 gap-2 pt-0.5 text-center">
+                    <div class="bg-white/10 rounded-xl py-1.5 px-1.5">
                         <div class="text-[10px] text-emerald-200">Ishlangan</div>
-                        <div id="modalTotalAnswered" class="font-mono font-extrabold text-sm">0 ta</div>
+                        <div id="modalTotalAnswered" class="font-mono font-extrabold text-xs sm:text-sm">0 ta</div>
                     </div>
-                    <div class="bg-emerald-500/25 rounded-xl py-1.5 px-2 border border-emerald-400/30">
-                        <div class="text-[10px] text-emerald-200">To'g'ri javob</div>
-                        <div id="modalTotalCorrect" class="font-mono font-extrabold text-sm text-emerald-300">0 ta</div>
+                    <div class="bg-emerald-500/25 rounded-xl py-1.5 px-1.5 border border-emerald-400/30">
+                        <div class="text-[10px] text-emerald-200">To'g'ri</div>
+                        <div id="modalTotalCorrect" class="font-mono font-extrabold text-xs sm:text-sm text-emerald-300">0 ta</div>
                     </div>
-                    <div class="bg-rose-500/25 rounded-xl py-1.5 px-2 border border-rose-400/30">
-                        <div class="text-[10px] text-rose-200">Xato javob</div>
-                        <div id="modalTotalWrong" class="font-mono font-extrabold text-sm text-rose-300">0 ta</div>
+                    <div class="bg-rose-500/25 rounded-xl py-1.5 px-1.5 border border-rose-400/30">
+                        <div class="text-[10px] text-rose-200">Xato</div>
+                        <div id="modalTotalWrong" class="font-mono font-extrabold text-xs sm:text-sm text-rose-300">0 ta</div>
                     </div>
                 </div>
             </div>
 
             <!-- 3 Bo'lim Statistikasi -->
-            <div class="space-y-2">
-                <div class="text-xs font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400">Bo'limlar bo'yicha natijalar</div>
-                <div class="grid grid-cols-3 gap-2.5">
-                    <div class="p-3.5 rounded-2xl bg-stone-100/90 dark:bg-emerald-950/60 border border-stone-200 dark:border-emerald-800/50 text-center">
-                        <div id="stat2026Count" class="text-lg font-extrabold text-emerald-600 dark:text-emerald-400 font-mono">0 / 21</div>
-                        <div class="text-[11px] font-bold text-slate-700 dark:text-slate-200 mt-0.5">2026-yil mavzu</div>
-                        <div id="stat2026Sub" class="text-[10px] text-slate-500 dark:text-emerald-400/80 mt-0.5">To'g'ri: 0 ta</div>
+            <div class="space-y-1.5">
+                <div class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400">Bo'limlar bo'yicha natijalar</div>
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="p-2.5 sm:p-3 rounded-2xl bg-stone-100/90 dark:bg-emerald-950/60 border border-stone-200 dark:border-emerald-800/50 text-center">
+                        <div id="stat2026Count" class="text-sm sm:text-base font-extrabold text-emerald-600 dark:text-emerald-400 font-mono">0 / 21</div>
+                        <div class="text-[10px] font-bold text-slate-700 dark:text-slate-200 mt-0.5">2026-yil mavzu</div>
+                        <div id="stat2026Sub" class="text-[9px] text-slate-500 dark:text-emerald-400/80 mt-0.5">To'g'ri: 0 ta</div>
                     </div>
-                    <div class="p-3.5 rounded-2xl bg-stone-100/90 dark:bg-emerald-950/60 border border-stone-200 dark:border-emerald-800/50 text-center">
-                        <div id="statAttCount" class="text-lg font-extrabold text-amber-600 dark:text-amber-400 font-mono">0 / 15</div>
-                        <div class="text-[11px] font-bold text-slate-700 dark:text-slate-200 mt-0.5">Attestatsiya</div>
-                        <div id="statAttSub" class="text-[10px] text-slate-500 dark:text-emerald-400/80 mt-0.5">To'g'ri: 0 ta</div>
+                    <div class="p-2.5 sm:p-3 rounded-2xl bg-stone-100/90 dark:bg-emerald-950/60 border border-stone-200 dark:border-emerald-800/50 text-center">
+                        <div id="statAttCount" class="text-sm sm:text-base font-extrabold text-amber-600 dark:text-amber-400 font-mono">0 / 15</div>
+                        <div class="text-[10px] font-bold text-slate-700 dark:text-slate-200 mt-0.5">Attestatsiya</div>
+                        <div id="statAttSub" class="text-[9px] text-slate-500 dark:text-emerald-400/80 mt-0.5">To'g'ri: 0 ta</div>
                     </div>
-                    <div class="p-3.5 rounded-2xl bg-stone-100/90 dark:bg-emerald-950/60 border border-stone-200 dark:border-emerald-800/50 text-center">
-                        <div id="statVarCount" class="text-lg font-extrabold text-teal-600 dark:text-teal-400 font-mono">0 / 70</div>
-                        <div class="text-[11px] font-bold text-slate-700 dark:text-slate-200 mt-0.5">35 talik variant</div>
-                        <div id="statVarSub" class="text-[10px] text-slate-500 dark:text-emerald-400/80 mt-0.5">To'g'ri: 0 ta</div>
+                    <div class="p-2.5 sm:p-3 rounded-2xl bg-stone-100/90 dark:bg-emerald-950/60 border border-stone-200 dark:border-emerald-800/50 text-center">
+                        <div id="statVarCount" class="text-sm sm:text-base font-extrabold text-teal-600 dark:text-teal-400 font-mono">0 / 70</div>
+                        <div class="text-[10px] font-bold text-slate-700 dark:text-slate-200 mt-0.5">35 talik variant</div>
+                        <div id="statVarSub" class="text-[9px] text-slate-500 dark:text-emerald-400/80 mt-0.5">To'g'ri: 0 ta</div>
                     </div>
                 </div>
             </div>
 
             <!-- Action Buttons -->
-            <div class="flex items-center gap-2.5 pt-1">
-                <button onclick="resetAllUserStats()" class="px-3.5 py-3 rounded-xl border border-rose-300 dark:border-rose-800/70 hover:bg-rose-50 dark:hover:bg-rose-950/50 text-rose-600 dark:text-rose-400 text-xs font-bold transition-all cursor-pointer">
-                    Natijalarni tozalash
+            <div class="flex items-center gap-2 pt-1">
+                <button onclick="resetAllUserStats()" class="px-3 py-2.5 rounded-xl border border-rose-300 dark:border-rose-800/70 hover:bg-rose-50 dark:hover:bg-rose-950/50 text-rose-600 dark:text-rose-400 text-xs font-bold transition-all cursor-pointer">
+                    Tozalash
                 </button>
-                <button onclick="closeProfileModal()" class="flex-1 py-3 rounded-xl bg-gradient-to-r from-pineDark to-pineMid hover:from-emerald-800 hover:to-emerald-700 text-white text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-md">
+                <button onclick="closeProfileModal()" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-pineDark to-pineMid hover:from-emerald-800 hover:to-emerald-700 text-white text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-md">
                     Yopish
                 </button>
             </div>
@@ -620,7 +616,6 @@
             }
         }
 
-        // Har bir bo'lim va mavzuning ishlash ko'rsatkichi: { "topic_0": { solved: 3, correct: 2, total: 3, answers: [0,1,1] } }
         let progressMap = JSON.parse(localStorage.getItem('iq_progress_map_2026')) || {};
 
         function saveProgressMap() {
@@ -634,7 +629,6 @@
             if (!entry) {
                 return { solved: 0, correct: 0, total: totalQ, answers: new Array(totalQ).fill(null) };
             }
-            // Agar savollar soni o'zgargan bo'lsa moslashtiramiz
             const answers = entry.answers && entry.answers.length === totalQ
                 ? entry.answers
                 : new Array(totalQ).fill(null);
@@ -678,10 +672,8 @@
             const totalPoints = totalCorrect * 2;
             const accuracy = totalAnswered > 0 ? Math.round((totalCorrect / totalAnswered) * 100) : 0;
 
-            // Headerdagi ball
             document.getElementById('headerScoreText').textContent = `${totalPoints} ball • Natijalarim`;
 
-            // Modal ichidagi raqamlar
             document.getElementById('modalTotalPoints').textContent = `${totalPoints} ball`;
             document.getElementById('modalAccuracyPct').textContent = `${accuracy}%`;
             document.getElementById('modalAccuracyBar').style.width = `${accuracy}%`;
@@ -810,7 +802,6 @@
                         <h4 class="text-sm font-extrabold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 leading-snug">
                             ${title}
                         </h4>
-                        <!-- Doira ichida Ochiq • X ta (Xuddi rasmdagidek) -->
                         <div class="w-14 h-14 rounded-full bg-emerald-500/12 border border-emerald-500/40 text-emerald-700 dark:text-emerald-300 flex flex-col items-center justify-center shrink-0 text-[10px] font-extrabold leading-tight shadow-2xs">
                             <span>🔓</span>
                             <span>Ochiq •</span>
@@ -819,7 +810,6 @@
                     </div>
 
                     <div class="space-y-2">
-                        <!-- Yashil Progress Chizig'i -->
                         <div class="w-full h-2 bg-slate-200 dark:bg-emerald-950 rounded-full overflow-hidden">
                             <div class="h-full bg-emerald-500 transition-all duration-300 rounded-full" style="width: ${pct}%"></div>
                         </div>
@@ -887,7 +877,6 @@
             const saved = getCardProgress(key);
             userAnswers = [...saved.answers];
 
-            // Agar oldin hammasini yechib bo'lgan bo'lsa, foydalanuvchi ko'rishi va xohlasa qayta boshlashi mumkin
             const firstUnanswered = userAnswers.findIndex(a => a === null);
             activeQIndex = firstUnanswered !== -1 ? firstUnanswered : 0;
 
@@ -942,7 +931,6 @@
                 dataBox.classList.add('hidden');
             }
 
-            // Hisoblagichlar va Yashil Progress Chizig'i
             const answeredCount = userAnswers.filter(a => a !== null).length;
             const correctCount = userAnswers.filter((a, i) => a === SAVOLLAR_BAZASI[i].togriJavob).length;
             const wrongCount = Math.max(0, answeredCount - correctCount);
@@ -954,7 +942,6 @@
             document.getElementById('quizWrongCounter').textContent = wrongCount;
             document.getElementById('quizScoreCounter').textContent = correctCount * 2;
 
-            // Agar barcha savollar ishlangan bo'lsa — Yuqorida tabrik va Qayta ishlash banneri chiqadi
             const finishBanner = document.getElementById('quizFinishBanner');
             if (answeredCount === total && total > 0) {
                 finishBanner.classList.remove('hidden');
@@ -965,7 +952,6 @@
                 finishBanner.classList.add('hidden');
             }
 
-            // Number Pills
             const pillsBox = document.getElementById('quizNumberPills');
             pillsBox.innerHTML = SAVOLLAR_BAZASI.map((_, idx) => {
                 let cls = "bg-stone-100 dark:bg-emerald-950 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-emerald-800";
@@ -978,7 +964,6 @@
                 return `<button onclick="jumpToQ(${idx})" class="w-8 h-8 rounded-lg text-xs font-mono font-bold border ${cls} cursor-pointer transition-all">${idx + 1}</button>`;
             }).join('');
 
-            // Options
             const chosen = userAnswers[activeQIndex];
             const optsBox = document.getElementById('qOptionsContainer');
             optsBox.innerHTML = q.variantlar.map((opt, idx) => {
@@ -1010,7 +995,6 @@
             if (userAnswers[activeQIndex] !== null) return;
             userAnswers[activeQIndex] = idx;
 
-            // Shu mavzu progressini xotiraga saqlash
             const solved = userAnswers.filter(a => a !== null).length;
             const correct = userAnswers.filter((a, i) => a === SAVOLLAR_BAZASI[i].togriJavob).length;
             progressMap[activeQuizKey] = {
