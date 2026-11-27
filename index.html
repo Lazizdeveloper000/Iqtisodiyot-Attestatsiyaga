@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="uz" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iqtisodiyot Attestatsiya 2026 — Interaktiv Test va Imtihon Platformasi</title>
+    <!-- Telegram Web App SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -13,6 +15,7 @@
 
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -20,12 +23,8 @@
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        stoneBg: '#F3F2EC',
                         pineDark: '#0C2D22',
                         pineMid: '#134232',
-                        emeraldBrand: '#059669',
-                        amberBrand: '#D97706',
-                        tealBrand: '#0D9488'
                     }
                 }
             }
@@ -34,56 +33,101 @@
 
     <style>
         body {
-            background-color: #F3F2EC;
-            color: #18181B;
             font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background 0.35s ease, color 0.35s ease;
         }
 
-        /* Distinct Card Style (Different from original screenshot) */
+        /* OQ (LIGHT) GRADIENT FON */
+        html.light body {
+            background:
+                radial-gradient(circle at 12% 10%, rgba(16, 185, 129, 0.15), transparent 42%),
+                radial-gradient(circle at 88% 15%, rgba(245, 158, 11, 0.12), transparent 42%),
+                linear-gradient(145deg, #FFFFFF 0%, #F2EFE9 50%, #E3F3EC 100%);
+            background-attachment: fixed;
+            color: #0F172A;
+        }
+
+        /* QORA (DARK) GRADIENT FON */
+        html.dark body {
+            background:
+                radial-gradient(circle at 15% 12%, rgba(16, 185, 129, 0.18), transparent 45%),
+                radial-gradient(circle at 85% 20%, rgba(217, 119, 6, 0.12), transparent 45%),
+                linear-gradient(145deg, #040807 0%, #091310 52%, #061D16 100%);
+            background-attachment: fixed;
+            color: #F1F5F9;
+        }
+
+        /* PREMIUM KARTOCHKALAR */
         .neo-card {
-            background: #FFFFFF;
-            border: 1px solid #E2E0D6;
-            border-radius: 1.25rem;
-            box-shadow: 0 4px 14px -4px rgba(12, 45, 34, 0.05);
-            transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 224, 214, 0.95);
+            border-radius: 1.35rem;
+            box-shadow: 0 10px 28px -8px rgba(12, 45, 34, 0.06);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .neo-card:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
             border-color: #10B981;
-            box-shadow: 0 10px 24px -6px rgba(5, 150, 105, 0.12);
+            box-shadow: 0 16px 34px -8px rgba(16, 185, 129, 0.15);
         }
 
-        /* Hero Pattern */
+        html.dark .neo-card {
+            background: rgba(13, 25, 21, 0.85);
+            border: 1px solid rgba(16, 185, 129, 0.22);
+            box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.6);
+        }
+        html.dark .neo-card:hover {
+            border-color: #34D399;
+            box-shadow: 0 16px 36px -8px rgba(16, 185, 129, 0.25);
+        }
+
+        /* HERO BANNER GRADIENT */
         .hero-mesh {
-            background-color: #0C2D22;
-            background-image: 
-                radial-gradient(at 85% 15%, rgba(16, 185, 129, 0.22) 0px, transparent 50%),
-                radial-gradient(at 15% 85%, rgba(217, 119, 6, 0.18) 0px, transparent 50%);
+            background:
+                radial-gradient(at 88% 15%, rgba(16, 185, 129, 0.32) 0px, transparent 50%),
+                radial-gradient(at 12% 88%, rgba(245, 158, 11, 0.22) 0px, transparent 50%),
+                linear-gradient(135deg, #061B14 0%, #0C2D22 55%, #124031 100%);
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
 
     <!-- =====================================================
-         COMPACT TOP HEADER (NO TELEGRAM BAR, NO PAID/DEMO)
+         TOP HEADER (Profil, Kalkulyator, Oq/Qora rejim)
          ===================================================== -->
-    <header class="bg-white/90 backdrop-blur-md border-b border-[#E2E0D6] sticky top-0 z-30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
-            <!-- Left Logo & Title -->
-            <div class="flex items-center gap-3">
-                <button id="topBackBtn" onclick="goHome()" class="hidden px-3.5 py-1.5 rounded-xl bg-[#F3F2EC] hover:bg-emerald-50 text-xs font-bold text-slate-700 border border-[#D5D3C8] items-center gap-1.5 transition-all">
-                    <i class="ph-bold ph-arrow-left"></i> Ortga qaytish
+    <header class="bg-white/85 dark:bg-[#08110E]/85 backdrop-blur-md border-b border-stone-200/80 dark:border-emerald-900/40 sticky top-0 z-30 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
+            
+            <!-- Left: Telegram User Profile Capsule -->
+            <div class="flex items-center gap-2.5 sm:gap-3">
+                <button onclick="openProfileModal()" class="flex items-center gap-2.5 pl-1.5 pr-3.5 py-1 rounded-full bg-stone-100/90 dark:bg-emerald-950/70 hover:bg-emerald-50 dark:hover:bg-emerald-900/60 border border-stone-300/80 dark:border-emerald-700/50 transition-all cursor-pointer shrink-0 shadow-xs">
+                    <img id="headerAvatar" src="https://ui-avatars.com/api/?name=IQ&background=0C2D22&color=34D399&bold=true" alt="Profil" class="w-8 h-8 rounded-full object-cover border border-emerald-500/40">
+                    <div class="text-left">
+                        <div id="headerUserName" class="text-xs font-extrabold text-slate-900 dark:text-white leading-none max-w-[110px] sm:max-w-[150px] truncate">
+                            Foydalanuvchi
+                        </div>
+                        <div class="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1 mt-0.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span>Natijalarim</span>
+                        </div>
+                    </div>
                 </button>
 
-                <div onclick="goHome()" class="flex items-center gap-3 cursor-pointer">
-                    <div class="w-10 h-10 rounded-xl bg-pineDark text-emerald-400 flex items-center justify-center font-mono font-extrabold text-base shadow-sm border border-emerald-500/30">
+                <button id="topBackBtn" onclick="goHome()" class="hidden px-3 py-1.5 rounded-xl bg-stone-100 dark:bg-emerald-950/80 hover:bg-emerald-50 text-xs font-bold text-slate-700 dark:text-emerald-200 border border-stone-300 dark:border-emerald-800 items-center gap-1.5 transition-all cursor-pointer">
+                    <i class="ph-bold ph-arrow-left"></i>
+                    <span class="hidden md:inline">Ortga</span>
+                </button>
+
+                <div onclick="goHome()" class="hidden sm:flex items-center gap-2.5 cursor-pointer pl-2 border-l border-slate-200 dark:border-emerald-900/60">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-600 to-pineDark text-white flex items-center justify-center font-mono font-extrabold text-sm shadow-sm">
                         IQ
                     </div>
                     <div>
-                        <h1 class="text-sm sm:text-base font-extrabold tracking-tight text-slate-900 leading-tight">
+                        <h1 class="text-sm font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
                             Iqtisodiyot Attestatsiya 2026
                         </h1>
-                        <p id="headerSubText" class="text-[11px] text-slate-500 font-medium">
+                        <p id="headerSubText" class="text-[11px] text-slate-500 dark:text-emerald-300/70 font-medium">
                             Yagona interaktiv test va imtihon platformasi
                         </p>
                     </div>
@@ -91,14 +135,22 @@
             </div>
 
             <!-- Right Controls -->
-            <div class="flex items-center gap-2">
-                <button onclick="openCalcModal()" class="px-3 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-800 border border-amber-500/30 text-xs font-bold flex items-center gap-1.5 transition-all">
+            <div class="flex items-center gap-1.5 sm:gap-2">
+                <!-- Kalkulyator -->
+                <button onclick="openCalcModal()" class="px-3 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-800 dark:text-amber-300 border border-amber-500/30 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer">
                     <i class="ph-bold ph-calculator text-sm"></i>
                     <span class="hidden sm:inline">Kalkulyator</span>
                 </button>
-                <button onclick="goHome()" class="px-3.5 py-1.5 rounded-xl bg-pineDark hover:bg-pineMid text-white text-xs font-bold flex items-center gap-1.5 transition-all">
+
+                <!-- Oq / Qora Gradient Rejim Tugmasi -->
+                <button onclick="toggleTheme()" id="themeToggleBtn" title="Oq / Qora rejim" class="w-9 h-9 rounded-xl bg-stone-100 dark:bg-emerald-950/90 hover:bg-emerald-100 dark:hover:bg-emerald-900 text-slate-800 dark:text-amber-300 border border-stone-300/80 dark:border-emerald-800 flex items-center justify-center transition-all cursor-pointer">
+                    <i id="themeIcon" class="ph-fill ph-sun text-base text-amber-400"></i>
+                </button>
+
+                <!-- Bosh sahifa -->
+                <button onclick="goHome()" class="px-3 py-1.5 rounded-xl bg-pineDark hover:bg-pineMid text-white text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer">
                     <i class="ph-fill ph-house text-emerald-400"></i>
-                    <span>Bosh sahifa</span>
+                    <span class="hidden md:inline">Bosh sahifa</span>
                 </button>
             </div>
         </div>
@@ -109,15 +161,11 @@
          ===================================================== -->
     <main class="max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 flex-1">
 
-        <!-- =================================================
-             VIEW 0: HOME VIEW (HERO + 3 MAIN CARDS)
-             ================================================= -->
+        <!-- VIEW 0: HOME -->
         <div id="view-home" class="space-y-6">
-
-            <!-- Hero Banner (Nordic Emerald & Gold Design) -->
-            <div class="hero-mesh rounded-3xl p-6 sm:p-9 text-white shadow-lg border border-emerald-800/40 relative overflow-hidden">
+            <div class="hero-mesh rounded-3xl p-6 sm:p-9 text-white shadow-xl border border-emerald-500/30 relative overflow-hidden">
                 <div class="max-w-4xl space-y-4 relative z-10">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/15 text-emerald-300 text-xs font-semibold">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-xs border border-white/15 text-emerald-300 text-xs font-semibold">
                         <i class="ph-fill ph-seal-check text-amber-400 text-sm"></i>
                         <span>2026-yil Rasmiy Spetsifikatsiya Asosida • 100% Bepul Platforma</span>
                     </div>
@@ -127,609 +175,462 @@
                     </h2>
 
                     <p class="text-xs sm:text-sm text-emerald-100/85 leading-relaxed max-w-3xl">
-                        Mavzulashtirilgan 2026-yil iqtisodiyot testlari, 15 bo'limli attestatsiya testlari va rasmiy spetsifikatsiya asosida saralangan eng yaxshi 70 ta 35 talik imtihon variantlari bitta qulay va ochiq tizimda.
+                        Mavzulashtirilgan 2026-yil iqtisodiyot testlari, 15 bo'limli attestatsiya testlari va rasmiy spetsifikatsiya asosida saralangan eng yaxshi 70 ta 35 talik imtihon variantlari bitta qulay tizimda.
                     </p>
 
-                    <!-- 3 Stat Pills inside Hero -->
                     <div class="pt-2 flex flex-wrap items-center gap-2.5">
-                        <div onclick="openSection('topics')" class="cursor-pointer px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-xs font-semibold flex items-center gap-2 transition-all">
+                        <div onclick="openSection('topics')" class="cursor-pointer px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-xs font-semibold flex items-center gap-2 transition-all">
                             <i class="ph-fill ph-books text-emerald-400 text-base"></i>
                             <span>2026-yil bazasi: <strong>1 822 ta test</strong></span>
                         </div>
-                        <div onclick="openSection('specs')" class="cursor-pointer px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-xs font-semibold flex items-center gap-2 transition-all">
+                        <div onclick="openSection('specs')" class="cursor-pointer px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-xs font-semibold flex items-center gap-2 transition-all">
                             <i class="ph-fill ph-target text-amber-400 text-base"></i>
                             <span>Attestatsiya bazasi: <strong>2 584 ta test</strong></span>
                         </div>
-                        <div onclick="openSection('variants')" class="cursor-pointer px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-xs font-semibold flex items-center gap-2 transition-all">
+                        <div onclick="openSection('variants')" class="cursor-pointer px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-xs font-semibold flex items-center gap-2 transition-all">
                             <i class="ph-fill ph-trophy text-teal-300 text-base"></i>
-                            <span>35 talik imtihon: <strong>70 ta saralangan variant (90 daqiqa)</strong></span>
+                            <span>35 talik imtihon: <strong>70 ta saralangan variant (60 daqiqa)</strong></span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 3 Main Cards Grid (Distinct Left/Bottom Border Styling, NO Paid Banner) -->
+            <!-- 3 Main Cards Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-
-                <!-- Card 1: 21 Topics -->
+                <!-- Card 1 -->
                 <div onclick="openSection('topics')" class="neo-card p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden group border-l-4 border-l-emerald-600">
                     <div>
                         <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 rounded-2xl bg-emerald-600/10 text-emerald-700 flex items-center justify-center">
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
                                 <i class="ph-duotone ph-book-open-text text-2xl"></i>
                             </div>
-                            <span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-bold">
+                            <span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 text-[11px] font-bold">
                                 🔓 Barchasi ochiq
                             </span>
                         </div>
-
-                        <h3 class="text-lg font-extrabold text-slate-900 group-hover:text-emerald-700 transition-colors">
+                        <h3 class="text-lg font-extrabold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                             1. Mavzulashtirilgan 2026-yil testlari
                         </h3>
-
-                        <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
                             21 ta asosiy iqtisodiyot mavzusi bo'yicha to'liq 2026-yil test banki: talab-taklif grafiklari, YaIM jadvallari, masalalar va batafsil formulali yechimlar bilan.
                         </p>
-
-                        <div class="flex flex-wrap gap-1.5 mt-4">
-                            <span class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold">1 822 ta test</span>
-                            <span class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold">21 ta mavzu</span>
-                            <span class="px-2.5 py-1 rounded-lg bg-teal-50 text-teal-800 border border-teal-200 text-xs font-semibold">Grafiklar + Masalalar + Yechim</span>
-                        </div>
                     </div>
-
-                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-emerald-700">
-                        <span>Mavzularni tanlash</span>
+                    <div class="mt-6 pt-4 border-t border-slate-200/70 dark:border-emerald-900/40 flex items-center justify-between text-xs font-bold text-emerald-700 dark:text-emerald-400">
+                        <span>Mavzularni tanlash (21 ta)</span>
                         <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
                     </div>
                 </div>
 
-                <!-- Card 2: 15 Specification Sections -->
+                <!-- Card 2 -->
                 <div onclick="openSection('specs')" class="neo-card p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden group border-l-4 border-l-amber-500">
                     <div>
                         <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-700 flex items-center justify-center">
-                                <i class="ph-duotone ph-CompassTool text-2xl"></i>
+                            <div class="w-12 h-12 rounded-2xl bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+                                <i class="ph-duotone ph-target text-2xl"></i>
                             </div>
-                            <span class="px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 text-[11px] font-bold">
+                            <span class="px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-800 dark:text-amber-300 border border-amber-500/30 text-[11px] font-bold">
                                 🔓 1.1 – 7.1 bo'limlar
                             </span>
                         </div>
-
-                        <h3 class="text-lg font-extrabold text-slate-900 group-hover:text-amber-700 transition-colors">
+                        <h3 class="text-lg font-extrabold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
                             2. Mavzulashtirilgan attestatsiya testlari
                         </h3>
-
-                        <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-                            Rasmiy iqtisodiyot attestatsiya spetsifikatsiyasining 15 ta bo'limi (1.1 dan 7.1 gacha). Kerakli mavzu va test raqamini tanlang — javob belgilaganda yechimi chiqadi.
+                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+                            Rasmiy iqtisodiyot attestatsiya spetsifikatsiyasining 15 ta bo'limi (1.1 dan 7.1 gacha). Kerakli mavzuni tanlang — javob belgilaganda yechimi chiqadi.
                         </p>
-
-                        <div class="flex flex-wrap gap-1.5 mt-4">
-                            <span class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 border border-amber-200 text-xs font-bold">2 584 ta test</span>
-                            <span class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold">15 ta mavzu</span>
-                            <span class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-semibold">640 ta grafik + yechim</span>
-                        </div>
                     </div>
-
-                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-amber-700">
-                        <span>Mavzularni tanlash</span>
+                    <div class="mt-6 pt-4 border-t border-slate-200/70 dark:border-emerald-900/40 flex items-center justify-between text-xs font-bold text-amber-700 dark:text-amber-400">
+                        <span>Bo'limlarni tanlash (15 ta)</span>
                         <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
                     </div>
                 </div>
 
-                <!-- Card 3: 70 Exam Variants -->
-                <div onclick="openSection('variants')" class="neo-card p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden group border-l-4 border-l-pineDark">
+                <!-- Card 3 -->
+                <div onclick="openSection('variants')" class="neo-card p-6 flex flex-col justify-between cursor-pointer relative overflow-hidden group border-l-4 border-l-teal-600">
                     <div>
                         <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 rounded-2xl bg-pineDark/10 text-pineDark flex items-center justify-center">
+                            <div class="w-12 h-12 rounded-2xl bg-teal-500/15 text-teal-700 dark:text-teal-400 flex items-center justify-center">
                                 <i class="ph-duotone ph-trophy text-2xl"></i>
                             </div>
-                            <span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-bold">
+                            <span class="px-2.5 py-1 rounded-full bg-teal-500/10 text-teal-800 dark:text-teal-300 border border-teal-500/30 text-[11px] font-bold">
                                 🔓 70 ta bepul variant
                             </span>
                         </div>
-
-                        <h3 class="text-lg font-extrabold text-slate-900 group-hover:text-pineDark transition-colors">
+                        <h3 class="text-lg font-extrabold text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                             3. Attestatsiya 35 talik testlar
                         </h3>
-
-                        <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-                            Har bir spetsifikatsiya mavzusi bo'yicha eng sifatli testlardan tuzilgan 70 ta saralangan variant. 90 daqiqa taymer, iqtisodiy kalkulyator va xatolar tahlili.
+                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+                            Har bir spetsifikatsiya mavzusi bo'yicha eng sifatli testlardan tuzilgan 70 ta saralangan variant. 60 daqiqa taymer, iqtisodiy kalkulyator va yechimlar tahlili.
                         </p>
-
-                        <div class="flex flex-wrap gap-1.5 mt-4">
-                            <span class="px-2.5 py-1 rounded-lg bg-slate-900 text-white text-xs font-bold">70 ta saralangan variant</span>
-                            <span class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 border border-amber-200 text-xs font-semibold">⏱ 90 daqiqa</span>
-                            <span class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-semibold">🧮 Kalkulyator + tahlil</span>
-                        </div>
                     </div>
-
-                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-pineDark">
+                    <div class="mt-6 pt-4 border-t border-slate-200/70 dark:border-emerald-900/40 flex items-center justify-between text-xs font-bold text-teal-700 dark:text-teal-400">
                         <span>70 ta variant ro'yxati</span>
                         <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
                     </div>
                 </div>
-
             </div>
         </div>
 
-        <!-- =================================================
-             VIEW 1: 21 MAVZULASHTIRILGAN 2026-YIL TESTLARI
-             ================================================= -->
+        <!-- VIEW 1: TOPICS (21 TA MAVZU) -->
         <div id="view-topics" class="hidden space-y-5">
-            <!-- Top Banner Box -->
             <div class="neo-card p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-l-4 border-l-emerald-600">
                 <div>
-                    <div class="flex items-center gap-2">
-                        <i class="ph-duotone ph-book-open-text text-2xl text-emerald-600"></i>
-                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Mavzulashtirilgan 2026-yil testlari</h2>
-                    </div>
-                    <p class="text-xs sm:text-sm text-slate-500 mt-1">
-                        Kerakli iqtisodiyot mavzusini tanlang — barcha jadvallar, diagrammalar, masalalar va batafsil yechimlar to'liq bepul ishlaydi.
-                    </p>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">Mavzulashtirilgan 2026-yil testlari (21 ta mavzu)</h2>
+                    <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">Kerakli iqtisodiyot mavzusini tanlab testni boshlang.</p>
                 </div>
-                <button onclick="goHome()" class="self-start sm:self-center px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100 text-xs font-bold text-slate-700 shrink-0">
-                    ← Ortga qaytish
-                </button>
+                <button onclick="goHome()" class="px-4 py-2 rounded-xl border border-slate-300 dark:border-emerald-800 hover:bg-slate-100 dark:hover:bg-emerald-950 text-xs font-bold text-slate-700 dark:text-slate-200 shrink-0 cursor-pointer">← Ortga qaytish</button>
             </div>
-
-            <!-- Search Bar & Open All Button -->
-            <div class="flex flex-col sm:flex-row gap-3">
-                <div class="relative flex-1">
-                    <i class="ph-bold ph-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                    <input type="text" id="searchTopicsInput" oninput="renderTopicsGrid(this.value)" placeholder="Mavzu nomi bo'yicha qidirish..." class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-[#D5D3C8] text-sm focus:outline-none focus:border-emerald-600">
-                </div>
-                <button onclick="startQuizSession('Barcha 21 ta mavzu (Umumiy baza)', '1 822 ta test')" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shrink-0 shadow-sm">
-                    Barcha 1 822 ta testni ochish
-                </button>
-            </div>
-
-            <!-- 4-Column Grid of 21 Topics (ALL OPEN, NO LOCKS) -->
-            <div id="topicsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5"></div>
+            <div id="topicsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
         </div>
 
-        <!-- =================================================
-             VIEW 2: 15 BO'LIM SPETSIFIKATSIYA TESTLARI (1.1 - 7.1)
-             ================================================= -->
+        <!-- VIEW 2: SPECS (15 TA BO'LIM) -->
         <div id="view-specs" class="hidden space-y-5">
-            <!-- Top Banner Box -->
             <div class="neo-card p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-l-4 border-l-amber-500">
                 <div>
-                    <div class="flex items-center gap-2">
-                        <i class="ph-duotone ph-target text-2xl text-amber-600"></i>
-                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Mavzulashtirilgan attestatsiya testlari</h2>
-                    </div>
-                    <p class="text-xs sm:text-sm text-slate-500 mt-1">
-                        2026-yil Iqtisodiyot spetsifikatsiyasining 15 ta bo'limidan keraklisini tanlab ishlang. Har bir javob belgilanganda batafsil yechim chiqadi.
-                    </p>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">Mavzulashtirilgan attestatsiya testlari (1.1 – 7.1)</h2>
+                    <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">15 ta rasmiy spetsifikatsiya bo'limi bo'yicha testlar.</p>
                 </div>
-                <button onclick="goHome()" class="self-start sm:self-center px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100 text-xs font-bold text-slate-700 shrink-0">
-                    ← Ortga qaytish
-                </button>
+                <button onclick="goHome()" class="px-4 py-2 rounded-xl border border-slate-300 dark:border-emerald-800 hover:bg-slate-100 dark:hover:bg-emerald-950 text-xs font-bold text-slate-700 dark:text-slate-200 shrink-0 cursor-pointer">← Ortga qaytish</button>
             </div>
-
-            <!-- Search Bar & Open All Button -->
-            <div class="flex flex-col sm:flex-row gap-3">
-                <div class="relative flex-1">
-                    <i class="ph-bold ph-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                    <input type="text" id="searchSpecsInput" oninput="renderSpecsGrid(this.value)" placeholder="Bo'lim yoki mavzu nomi bo'yicha qidirish..." class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-[#D5D3C8] text-sm focus:outline-none focus:border-emerald-600">
-                </div>
-                <button onclick="startQuizSession('Barcha Spetsifikatsiya Testlari (1.1 – 7.1)', '2 584 ta test')" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shrink-0 shadow-sm">
-                    Barcha 2 584 ta testni ochish
-                </button>
-            </div>
-
-            <!-- 4-Column Grid of 15 Specification Sections (ALL OPEN, NO LOCKS) -->
-            <div id="specsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5"></div>
+            <div id="specsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
         </div>
 
-        <!-- =================================================
-             VIEW 3: 70 TA SARALANGAN VARIANT (35 TALIK TESTLAR)
-             ================================================= -->
+        <!-- VIEW 3: VARIANTS (70 TA VARIANT) -->
         <div id="view-variants" class="hidden space-y-5">
-            <!-- Top Banner Box -->
-            <div class="neo-card p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-l-4 border-l-pineDark">
+            <div class="neo-card p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-l-4 border-l-teal-600">
                 <div>
-                    <div class="flex items-center gap-2">
-                        <i class="ph-duotone ph-trophy text-2xl text-amber-600"></i>
-                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Attestatsiya 35 talik testlar — 70 ta saralangan variant</h2>
-                    </div>
-                    <p class="text-xs sm:text-sm text-slate-500 mt-1">
-                        Har bir variant 15 ta mavzudagi eng sifatli va to'liq testlardan shakllantirilgan. 35 ta savol • 90 daqiqa • Ichki kalkulyator.
-                    </p>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">Attestatsiya 35 talik testlar — 70 ta variant</h2>
+                    <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">35 ta savol • 60 daqiqa taymer • Barcha variantlar bepul.</p>
                 </div>
-                <button onclick="goHome()" class="self-start sm:self-center px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100 text-xs font-bold text-slate-700 shrink-0">
-                    ← Ortga qaytish
-                </button>
+                <button onclick="goHome()" class="px-4 py-2 rounded-xl border border-slate-300 dark:border-emerald-800 hover:bg-slate-100 dark:hover:bg-emerald-950 text-xs font-bold text-slate-700 dark:text-slate-200 shrink-0 cursor-pointer">← Ortga qaytish</button>
             </div>
-
-            <!-- Specification Distribution Box -->
-            <div class="neo-card p-5 space-y-3">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                    <p class="text-xs sm:text-sm font-bold text-slate-800">
-                        📋 Rasmiy 2026-yil Iqtisodiyot spetsifikatsiya taqsimoti (35 savol × 2 ball = 70 ball, 90 daqiqa):
-                    </p>
-                    <button onclick="startRandomVariant()" class="self-start sm:self-center px-4 py-2 rounded-xl bg-pineDark hover:bg-pineMid text-white text-xs font-bold flex items-center gap-1.5 shadow-sm">
-                        <i class="ph-bold ph-dice-five text-amber-400 text-sm"></i> Tasodifiy variant boshlash
-                    </button>
-                </div>
-                <div class="flex flex-wrap gap-2 text-xs font-semibold">
-                    <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">1. Iqtisodiy nazariya va PPF: 4 ta</span>
-                    <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-800 border border-blue-200">2. Talab, Taklif va Elastiklik: 6 ta</span>
-                    <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200">3. Korxona xarajatlari va Bozor: 6 ta</span>
-                    <span class="px-3 py-1 rounded-full bg-purple-50 text-purple-800 border border-purple-200">4. Makroiqtisodiyot va YaIM: 7 ta</span>
-                    <span class="px-3 py-1 rounded-full bg-teal-50 text-teal-800 border border-teal-200">5. Pul-kredit, Bank va Soliqlar: 6 ta</span>
-                    <span class="px-3 py-1 rounded-full bg-rose-50 text-rose-800 border border-rose-200">6. Jahon iqtisodiyoti va Moliya bozori: 6 ta</span>
-                </div>
-            </div>
-
-            <!-- Filter Pills -->
-            <div class="flex items-center gap-2">
-                <button onclick="filterVariants('all')" id="vTab-all" class="px-4 py-1.5 rounded-full text-xs font-bold bg-pineDark text-white">Barchasi (70)</button>
-                <button onclick="filterVariants('unsolved')" id="vTab-unsolved" class="px-4 py-1.5 rounded-full text-xs font-bold bg-white border border-slate-300 text-slate-700 hover:bg-slate-50">Ishlanmaganlar</button>
-                <button onclick="filterVariants('solved')" id="vTab-solved" class="px-4 py-1.5 rounded-full text-xs font-bold bg-white border border-slate-300 text-slate-700 hover:bg-slate-50">Ishlanganlar</button>
-            </div>
-
-            <!-- 8-Column Compact Grid of All 70 Variants (100% FREE & OPEN) -->
             <div id="variantsGrid" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3"></div>
         </div>
 
-        <!-- =================================================
-             VIEW 4: INTERACTIVE TEST SOLVER (QUIZ ENGINE)
-             ================================================= -->
+        <!-- VIEW 4: QUIZ SOLVER -->
         <div id="view-quiz" class="hidden space-y-5">
-            <!-- Quiz Top Bar -->
             <div class="neo-card p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3 border-l-4 border-l-emerald-600">
                 <div>
-                    <span id="quizContextBadge" class="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200">
-                        35 ta savol • 90 daqiqa
-                    </span>
-                    <h2 id="quizHeaderTitle" class="text-base sm:text-xl font-extrabold text-slate-900 mt-1">
-                        1-variant testlari
-                    </h2>
+                    <span id="quizContextBadge" class="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-md bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">60 daqiqa</span>
+                    <h2 id="quizHeaderTitle" class="text-base sm:text-xl font-extrabold text-slate-900 dark:text-white mt-1">Test</h2>
                 </div>
-
                 <div class="flex items-center gap-2">
-                    <div class="px-3.5 py-1.5 rounded-xl bg-pineDark text-white font-mono text-xs sm:text-sm font-bold flex items-center gap-1.5">
+                    <div class="px-3.5 py-1.5 rounded-xl bg-pineDark text-white font-mono text-xs font-bold flex items-center gap-1.5 shadow-xs">
                         <i class="ph-fill ph-timer text-amber-400"></i>
-                        <span id="quizTimerText">89:59</span>
+                        <span id="quizTimerText">60:00</span>
                     </div>
-                    <button onclick="openCalcModal()" class="px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 text-xs font-bold">
-                        🧮 Kalkulyator
-                    </button>
-                    <button onclick="closeQuizBack()" class="px-3.5 py-1.5 rounded-xl border border-slate-300 hover:bg-slate-100 text-xs font-bold text-slate-700">
-                        ← Ro'yxatga qaytish
-                    </button>
+                    <button onclick="closeQuizBack()" class="px-3.5 py-1.5 rounded-xl border border-slate-300 dark:border-emerald-800 hover:bg-slate-100 dark:hover:bg-emerald-950 text-xs font-bold text-slate-700 dark:text-slate-200 cursor-pointer">← Ro'yxatga qaytish</button>
                 </div>
             </div>
 
-            <!-- Question Numbers Bar -->
+            <!-- Question Number Pills -->
             <div class="neo-card p-4 flex flex-wrap items-center justify-between gap-3">
                 <div id="quizNumberPills" class="flex flex-wrap items-center gap-1.5"></div>
                 <div class="flex items-center gap-2 text-xs font-bold">
-                    <span class="px-3 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200">
-                        To'g'ri: <span id="quizCorrectCounter">0</span>
-                    </span>
-                    <span class="px-3 py-1 rounded-lg bg-amber-50 text-amber-800 border border-amber-200">
-                        Ball: <span id="quizScoreCounter">0</span> ball
-                    </span>
+                    <span class="px-3 py-1 rounded-lg bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">To'g'ri: <span id="quizCorrectCounter">0</span></span>
+                    <span class="px-3 py-1 rounded-lg bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-500/30">Ball: <span id="quizScoreCounter">0</span> ball</span>
                 </div>
             </div>
 
             <!-- Active Question Card -->
             <div class="neo-card p-5 sm:p-7 grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <!-- Left: Question & Solution (7 cols) -->
                 <div class="lg:col-span-7 space-y-4">
                     <div class="flex items-center justify-between">
-                        <span id="qTopicTag" class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-bold">
-                            Spetsifikatsiya bo'limi
-                        </span>
-                        <span id="qCounterLabel" class="text-xs font-mono font-bold text-slate-400">
-                            1-savol
-                        </span>
+                        <span id="qTopicTag" class="px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 text-xs font-bold">Mavzu</span>
+                        <span id="qCounterLabel" class="text-xs font-mono font-bold text-slate-400">1-savol</span>
                     </div>
-
-                    <h3 id="qTextDisplay" class="text-base sm:text-lg font-bold text-slate-900 leading-relaxed"></h3>
-
-                    <!-- Formula / Given Data Box -->
-                    <div id="qDataBox" class="p-4 rounded-2xl bg-pineDark text-emerald-200 font-mono text-xs sm:text-sm whitespace-pre-line leading-relaxed border border-emerald-800/40"></div>
-
-                    <!-- Instant Solution Box -->
-                    <div id="qSolutionBox" class="hidden p-4 sm:p-5 rounded-2xl bg-emerald-50/90 border-2 border-emerald-500/40 space-y-1.5">
-                        <div class="flex items-center gap-1.5 text-emerald-800 font-extrabold text-xs sm:text-sm">
-                            <i class="ph-fill ph-check-circle text-lg text-emerald-600"></i>
-                            <span>Batafsil iqtisodiy yechim va formula:</span>
+                    <h3 id="qTextDisplay" class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-relaxed"></h3>
+                    <div id="qDataBox" class="p-4 rounded-2xl bg-pineDark text-emerald-200 font-mono text-xs sm:text-sm whitespace-pre-line leading-relaxed border border-emerald-700/40"></div>
+                    <div id="qSolutionBox" class="hidden p-4 rounded-2xl bg-emerald-500/10 border-2 border-emerald-500/40 space-y-1">
+                        <div class="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-300 font-extrabold text-xs sm:text-sm">
+                            <i class="ph-fill ph-check-circle text-emerald-500 text-lg"></i><span>Batafsil yechim:</span>
                         </div>
-                        <p id="qSolutionText" class="text-xs sm:text-sm text-slate-800 font-mono whitespace-pre-line leading-relaxed"></p>
+                        <p id="qSolutionText" class="text-xs sm:text-sm text-slate-800 dark:text-slate-200 font-mono whitespace-pre-line leading-relaxed"></p>
                     </div>
                 </div>
 
-                <!-- Right: 4 Answer Choices (5 cols) -->
                 <div class="lg:col-span-5 flex flex-col justify-between space-y-4">
                     <div id="qOptionsContainer" class="space-y-2.5"></div>
-
-                    <div class="pt-4 border-t border-slate-100 flex items-center justify-between gap-2">
-                        <button onclick="prevQuizQ()" class="px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-50 text-xs font-bold text-slate-700">
-                            ← Oldingi savol
-                        </button>
-                        <button onclick="resetQuizProgress()" class="px-3 py-2 rounded-xl text-xs font-semibold text-slate-500 hover:text-slate-800">
-                            Qayta boshlash
-                        </button>
-                        <button onclick="nextQuizQ()" class="px-5 py-2 rounded-xl bg-pineDark hover:bg-pineMid text-white text-xs font-bold">
-                            Keyingi savol →
-                        </button>
+                    <div class="pt-4 border-t border-slate-200/70 dark:border-emerald-900/40 flex items-center justify-between gap-2">
+                        <button onclick="prevQuizQ()" class="px-4 py-2 rounded-xl border border-slate-300 dark:border-emerald-800 text-xs font-bold hover:bg-slate-100 dark:hover:bg-emerald-950 cursor-pointer">← Oldingi</button>
+                        <button onclick="resetQuizProgress()" class="px-3 py-2 rounded-xl text-xs font-semibold text-slate-500 hover:text-emerald-500 cursor-pointer">Qayta ishlash</button>
+                        <button onclick="nextQuizQ()" class="px-5 py-2 rounded-xl bg-pineDark hover:bg-pineMid text-white text-xs font-bold cursor-pointer">Keyingi →</button>
                     </div>
                 </div>
             </div>
         </div>
-
     </main>
 
-    <!-- =====================================================
-         CLEAN MINIMAL FOOTER (NO AUTHOR/TELEGRAM LINKS)
-         ===================================================== -->
-    <footer class="bg-pineDark text-emerald-100/80 border-t border-emerald-900/40 py-4 px-4 sm:px-6 mt-10">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-            <div class="flex items-center gap-2">
-                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono font-bold">IQ 2026</span>
-                <span>© 2026 Iqtisodiyot Attestatsiya Platformasi — Barcha test va variantlar 100% bepul</span>
-            </div>
+    <!-- FOOTER -->
+    <footer class="bg-pineDark text-emerald-100/80 border-t border-emerald-900/40 py-4 px-4 sm:px-6 mt-10 text-xs">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+            <span>© 2026 Iqtisodiyot Attestatsiya Platformasi — 100% Bepul va Ochiq Tizim</span>
             <div class="flex items-center gap-4 font-semibold text-emerald-300">
-                <button onclick="openSection('topics')" class="hover:underline">21 ta mavzu</button>
-                <button onclick="openSection('specs')" class="hover:underline">15 ta spetsifikatsiya</button>
-                <button onclick="openSection('variants')" class="hover:underline">70 ta variant</button>
+                <button onclick="openProfileModal()" class="hover:underline text-amber-300 cursor-pointer">👤 Profilim</button>
             </div>
         </div>
     </footer>
 
     <!-- =====================================================
-         BUILT-IN ECONOMICS & ARITHMETIC CALCULATOR MODAL
+         1. TELEGRAM PROFIL MODAL (REYTINGSIZ, TOZA DIZAYN)
          ===================================================== -->
-    <div id="calcModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-xs p-4">
-        <div class="bg-white w-full max-w-md rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-2xl space-y-4">
-            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center">
-                        <i class="ph-bold ph-calculator"></i>
+    <div id="profileModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-xs p-4">
+        <div class="bg-white dark:bg-[#0D1915] w-full max-w-md rounded-3xl p-6 border border-slate-200 dark:border-emerald-800/60 shadow-2xl space-y-6">
+            <!-- User Header (Auto Telegram Info) -->
+            <div class="flex items-center gap-4">
+                <img id="modalAvatar" src="https://ui-avatars.com/api/?name=IQ&background=0C2D22&color=34D399&bold=true" alt="Avatar" class="w-16 h-16 rounded-full object-cover border-2 border-emerald-500 shadow-md">
+                <div class="min-w-0 flex-1">
+                    <h3 id="modalUserName" class="text-lg font-extrabold text-slate-900 dark:text-white truncate">Foydalanuvchi</h3>
+                    <p id="modalUserHandle" class="text-xs font-mono text-slate-500 dark:text-emerald-300/70 truncate">@username</p>
+                    <div class="mt-2 inline-flex items-center px-3 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-[11px] font-bold">
+                        🔓 To'liq ochiq rejim (Barcha testlar bepul)
                     </div>
-                    <div>
-                        <h4 class="text-sm font-extrabold text-slate-900">Iqtisodiy Imtihon Kalkulyatori</h4>
-                        <p class="text-[11px] text-slate-500">YaIM, Foiz, Elastiklik va Arifmetik hisoblagich</p>
-                    </div>
-                </div>
-                <button onclick="closeCalcModal()" class="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600">
-                    <i class="ph-bold ph-x"></i>
-                </button>
-            </div>
-
-            <!-- Expression Calculator -->
-            <div class="space-y-2">
-                <label class="text-xs font-bold text-slate-700">Matematik ifoda (masalan: (180 - 30) / 5 yoki 420 + 150 + 130 - 20):</label>
-                <div class="flex gap-2">
-                    <input type="text" id="calcExprInput" placeholder="400 * 1.5 / 5" class="flex-1 px-3.5 py-2 rounded-xl border border-slate-300 font-mono text-sm focus:outline-none focus:border-emerald-600">
-                    <button onclick="evaluateCalcExpr()" class="px-4 py-2 rounded-xl bg-pineDark text-white text-xs font-bold">Hisoblash</button>
-                </div>
-                <div id="calcExprOutput" class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 font-mono text-sm font-bold text-emerald-900">
-                    Natija: 0
                 </div>
             </div>
 
-            <!-- Quick GDP Formula Helper -->
-            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <p class="text-xs font-bold text-slate-700">Tezkor YaIM: Y = C + I + G + (X - M)</p>
-                <div class="grid grid-cols-5 gap-1.5 font-mono text-xs">
-                    <input type="number" id="cVal" placeholder="C" oninput="quickGdp()" class="p-2 rounded-lg border border-slate-300 bg-white">
-                    <input type="number" id="iVal" placeholder="I" oninput="quickGdp()" class="p-2 rounded-lg border border-slate-300 bg-white">
-                    <input type="number" id="gVal" placeholder="G" oninput="quickGdp()" class="p-2 rounded-lg border border-slate-300 bg-white">
-                    <input type="number" id="xVal" placeholder="X" oninput="quickGdp()" class="p-2 rounded-lg border border-slate-300 bg-white">
-                    <input type="number" id="mVal" placeholder="M" oninput="quickGdp()" class="p-2 rounded-lg border border-slate-300 bg-white">
+            <!-- 3 Stats Cards -->
+            <div class="grid grid-cols-3 gap-3">
+                <div class="p-4 rounded-2xl bg-stone-100/90 dark:bg-emerald-950/60 border border-stone-200 dark:border-emerald-800/50 text-center">
+                    <div id="stat2026Count" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 font-mono">0</div>
+                    <div class="text-[11px] font-semibold text-slate-600 dark:text-slate-300 mt-1">2026-yil testi</div>
                 </div>
-                <p class="text-xs font-mono font-bold text-pineDark">YaIM = <span id="gdpOut">0</span> (Sof eksport NX = <span id="nxOut">0</span>)</p>
+                <div class="p-4 rounded-2xl bg-stone-100/90 dark:bg-emerald-950/60 border border-stone-200 dark:border-emerald-800/50 text-center">
+                    <div id="statAttCount" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 font-mono">0</div>
+                    <div class="text-[11px] font-semibold text-slate-600 dark:text-slate-300 mt-1">Attestatsiya</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-stone-100/90 dark:bg-emerald-950/60 border border-stone-200 dark:border-emerald-800/50 text-center">
+                    <div id="statVarCount" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 font-mono">0/70</div>
+                    <div class="text-[11px] font-semibold text-slate-600 dark:text-slate-300 mt-1">35 talik variant</div>
+                </div>
             </div>
+
+            <!-- Yopish tugmasi -->
+            <button onclick="closeProfileModal()" class="w-full py-3 rounded-xl bg-gradient-to-r from-pineDark to-pineMid hover:from-emerald-800 hover:to-emerald-700 text-white text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-md">
+                Yopish
+            </button>
         </div>
     </div>
 
     <!-- =====================================================
-         DATA & APPLICATION SCRIPT
+         2. KALKULYATOR MODAL
          ===================================================== -->
+    <div id="calcModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-xs p-4">
+        <div class="bg-white dark:bg-[#0D1915] w-full max-w-md rounded-3xl p-5 border border-slate-200 dark:border-emerald-800 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 dark:border-emerald-900/50 pb-3">
+                <h4 class="text-sm font-extrabold">Iqtisodiy Kalkulyator</h4>
+                <button onclick="closeCalcModal()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-emerald-950 cursor-pointer"><i class="ph-bold ph-x"></i></button>
+            </div>
+            <div class="space-y-2">
+                <input type="text" id="calcExprInput" placeholder="400 * 1.5 / 5" class="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 dark:bg-emerald-950 border border-slate-300 dark:border-emerald-800 font-mono text-sm">
+                <button onclick="evaluateCalcExpr()" class="w-full py-2.5 rounded-xl bg-pineDark hover:bg-pineMid text-white text-xs font-bold cursor-pointer">Hisoblash</button>
+                <div id="calcExprOutput" class="p-3 rounded-xl bg-emerald-500/15 font-mono text-sm font-bold text-emerald-900 dark:text-emerald-300">Natija: 0</div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // 1. 21 ECONOMICS TOPICS (Mavzulashtirilgan 2026-yil testlari - ALL 100% OPEN)
-        const topics21Data = [
-            { id: 1, title: "1-mavzu: Iqtisodiyotga kirish. Ehtiyojlar va resurslar cheklanganligi", count: 64, solved: 4, correct: 4 },
-            { id: 2, title: "2-mavzu: Muqobil qiymat va Ishlab chiqarish imkoniyatlari egri chizig'i (PPF)", count: 82, solved: 0, correct: 0 },
-            { id: 3, title: "3-mavzu: Iqtisodiy tizimlar va mulkchilik shakllari", count: 58, solved: 0, correct: 0 },
-            { id: 4, title: "4-mavzu: Bozor mexanizmi: Talab va Taklif qonuni hamda muvozanat narx", count: 135, solved: 12, correct: 11 },
-            { id: 5, title: "5-mavzu: Talab va taklif elastikligi (Narx, daromad va kesishgan elastiklik)", count: 96, solved: 0, correct: 0 },
-            { id: 6, title: "6-mavzu: Iste'molchi xulq-atvori: Umumiy va chekli naflilik (TU, MU)", count: 74, solved: 0, correct: 0 },
-            { id: 7, title: "7-mavzu: Korxona xarajatlari (FC, VC, TC, MC) va foyda maksimizatsiyasi", count: 128, solved: 6, correct: 5 },
-            { id: 8, title: "8-mavzu: Raqobat turlari: Mukammal raqobat, Monopoliya va Oligopoliya", count: 92, solved: 0, correct: 0 },
-            { id: 9, title: "9-mavzu: Ishlab chiqarish omillari bozori: Ish haqi, Renta va Foiz", count: 84, solved: 0, correct: 0 },
-            { id: 10, title: "10-mavzu: Milliy hisoblar tizimi: Nominal va Real YaIM (GDP) hamda deflyator", count: 142, solved: 8, correct: 8 },
-            { id: 11, title: "11-mavzu: Yalpi talab (AD) va Yalpi taklif (AS) makroiqtisodiy muvozanati", count: 78, solved: 0, correct: 0 },
-            { id: 12, title: "12-mavzu: Iste'mol funksiyasi (MPC, MPS) va Keyns xarajatlar multiplikatori", count: 88, solved: 0, correct: 0 },
-            { id: 13, title: "13-mavzu: Iqtisodiy sikllar, Ishsizlik turlari va Ouken qonuni masalalari", count: 105, solved: 5, correct: 4 },
-            { id: 14, title: "14-mavzu: Pul muomalasi qonuni, Fisher tenglamasi (MV=PQ) va Inflyatsiya", count: 112, solved: 0, correct: 0 },
-            { id: 15, title: "15-mavzu: Bank tizimi, Markaziy bank siyosati va pul multiplikatori", count: 94, solved: 0, correct: 0 },
-            { id: 16, title: "16-mavzu: Davlat byudjeti, Soliq tizimi va Laffer egri chizig'i", count: 90, solved: 0, correct: 0 },
-            { id: 17, title: "17-mavzu: Daromadlar tengsizligi, Lorens egri chizig'i va Jini koeffitsienti", count: 66, solved: 0, correct: 0 },
-            { id: 18, title: "18-mavzu: Xalqaro savdo: Mutlaq va qiyosiy ustunlik hamda bojxona tariflari", count: 76, solved: 0, correct: 0 },
-            { id: 19, title: "19-mavzu: Valyuta kurslari, Xarid qobiliyati pariteti va To'lov balansi", count: 68, solved: 0, correct: 0 },
-            { id: 20, title: "20-mavzu: Qimmatli qog'ozlar bozori (Aksiya, Obligatsiya), Menejment va Marketing", count: 55, solved: 0, correct: 0 },
-            { id: 21, title: "21-mavzu: Attestatsiya blok imtihoni (kompleks iqtisodiy sinov 2026)", count: 35, solved: 0, correct: 0 }
-        ];
+        // =========================================================================
+        // ★★★ SAVOLLAR BAZASI (YANGI SAVOLLARNI SHU YERGA QO'SHASIZ) ★★★
+        // =========================================================================
+        // Esda tuting: togriJavob uchun: 0 = A variant, 1 = B variant, 2 = C variant, 3 = D variant.
 
-        // 2. 15 SPECIFICATION SECTIONS (1.1 TO 7.1 - ALL 100% OPEN)
-        const specs15Data = [
-            { code: "1.1", title: "Iqtisodiy nazariya asoslari, ehtiyojlar va PPF egri chizig'i", specInfo: "Spetsifikatsiya: 1–3-savollar (3 ta savol tushadi)", count: 158, solved: 6, correct: 5 },
-            { code: "1.2", title: "Iqtisodiy tizimlar, mulkchilik va bozor infratuzilmasi", specInfo: "Spetsifikatsiya: 4–5-savollar (2 ta savol tushadi)", count: 142, solved: 2, correct: 2 },
-            { code: "2.1", title: "Talab va taklif qonuni, bozor muvozanati va taqchillik", specInfo: "Spetsifikatsiya: 6–8-savollar (3 ta savol tushadi)", count: 215, solved: 8, correct: 7 },
-            { code: "2.2", title: "Talab va taklif elastikligi hamda iste'molchi nafliligi", specInfo: "Spetsifikatsiya: 9–10-savollar (2 ta savol tushadi)", count: 176, solved: 4, correct: 4 },
-            { code: "2.3", title: "Korxona xarajatlari, amortizatsiya, tannarx va foyda", specInfo: "Spetsifikatsiya: 11–13-savollar (3 ta savol tushadi)", count: 224, solved: 5, correct: 4 },
-            { code: "3.1", title: "Raqobat va monopoliya, bozor tuzilmalari tahlili", specInfo: "Spetsifikatsiya: 14–15-savollar (2 ta savol tushadi)", count: 164, solved: 0, correct: 0 },
-            { code: "3.2", title: "Ishlab chiqarish omillari bozori: Ish haqi, renta va foiz", specInfo: "Spetsifikatsiya: 16–17-savollar (2 ta savol tushadi)", count: 152, solved: 3, correct: 3 },
-            { code: "4.1", title: "Milliy hisoblar tizimi: YaIM (GDP), YaMD va deflyator", specInfo: "Spetsifikatsiya: 18–20-savollar (3 ta savol tushadi)", count: 210, solved: 9, correct: 8 },
-            { code: "4.2", title: "Makroiqtisodiy muvozanat (AD-AS) va Keyns multiplikatori", specInfo: "Spetsifikatsiya: 21–22-savollar (2 ta savol tushadi)", count: 168, solved: 0, correct: 0 },
-            { code: "4.3", title: "Iqtisodiy sikllar, ishsizlik darajasi va Ouken qonuni", specInfo: "Spetsifikatsiya: 23–25-savollar (3 ta savol tushadi)", count: 194, solved: 4, correct: 3 },
-            { code: "5.1", title: "Pul muomalasi (Fisher tenglamasi), inflyatsiya va bank multiplikatori", specInfo: "Spetsifikatsiya: 26–27-savollar (2 ta savol tushadi)", count: 182, solved: 5, correct: 5 },
-            { code: "5.2", title: "Davlat byudjeti, soliq tizimi, Laffer va Lorens egri chiziqlari", specInfo: "Spetsifikatsiya: 28–29-savollar (2 ta savol tushadi)", count: 160, solved: 0, correct: 0 },
-            { code: "6.1", title: "Tadbirkorlik faoliyati, menejment, marketing va biznes-reja", specInfo: "Spetsifikatsiya: 30–31-savollar (2 ta savol tushadi)", count: 145, solved: 0, correct: 0 },
-            { code: "6.2", title: "Qimmatli qog'ozlar bozori: Aksiya kursi, obligatsiya va dividend", specInfo: "Spetsifikatsiya: 32–33-savollar (2 ta savol tushadi)", count: 148, solved: 2, correct: 2 },
-            { code: "7.1", title: "Jahon iqtisodiyoti, xalqaro savdo, valyuta kursi va to'lov balansi", specInfo: "Spetsifikatsiya: 34–35-savollar (2 ta savol tushadi)", count: 146, solved: 0, correct: 0 }
-        ];
-
-        // 3. INTERACTIVE ECONOMICS QUESTIONS BANK
-        const quizQuestions = [
+        const SAVOLLAR_BAZASI = [
             {
-                tag: "2.1. Talab va taklif muvozanati",
-                text: "Tovar bozorida talab funksiyasi Qd = 180 - 2P va taklif funksiyasi Qs = -30 + 5P ko'rinishida berilgan. Agar davlat tovar uchun P = 25 so'm miqdorida yuqori chegara narx belgilasa, bozorda qanday holat yuzaga keladi?",
-                data: "Qd = 180 - 2P  |  Qs = -30 + 5P\nBelgilangan narx: P = 25 so'm",
-                options: [
+                mavzu: "2.1. Talab va taklif muvozanati",
+                savol: "Tovar bozorida talab funksiyasi Qd = 180 - 2P va taklif funksiyasi Qs = -30 + 5P ko'rinishida berilgan. Agar davlat tovar uchun P = 25 so'm miqdorida yuqori chegara narx belgilasa, bozorda qanday holat yuzaga keladi?",
+                formula: "Qd = 180 - 2P  |  Qs = -30 + 5P\nBelgilangan narx: P = 25 so'm",
+                variantlar: [
                     "A) 35 birlik tovar taqchilligi (defitsit) yuzaga keladi",
                     "B) 25 birlik tovar ortiqchaligi (profisit) yuzaga keladi",
                     "C) Muvozanat narx P* = 30 bo'lib, 45 birlik ortiqchalik bo'ladi",
                     "D) Bozorda muvozanat saqlanadi (Qd = Qs = 120)"
                 ],
-                correct: 0,
-                solution: "1) P = 25 bo'lganda talab hajmi: Qd = 180 - 2(25) = 130 birlik.\n2) P = 25 bo'lganda taklif hajmi: Qs = -30 + 5(25) = 95 birlik.\n3) Qd > Qs bo'lgani uchun bozorda taqchillik (defitsit) = 130 - 95 = 35 birlik."
+                togriJavob: 0, // A variant to'g'ri
+                yechim: "1) P = 25 bo'lganda talab: Qd = 180 - 2(25) = 130.\n2) Taklif: Qs = -30 + 5(25) = 95.\n3) Taqchillik = 130 - 95 = 35 birlik."
             },
             {
-                tag: "4.1. Milliy hisoblar tizimi (YaIM)",
-                text: "Mamlakatda uy xo'jaliklari iste'mol xarajatlari (C) = 420 mlrd $, yalpi investitsiyalar (I) = 150 mlrd $, davlat xaridlari (G) = 130 mlrd $, eksport (X) = 85 mlrd $ va import (M) = 105 mlrd $ bo'lsa, xarajatlar usulida YaIM hajmini aniqlang.",
-                data: "C = 420 | I = 150 | G = 130 | X = 85 | M = 105\nFormula: YaIM = C + I + G + (X - M)",
-                options: [
+                mavzu: "4.1. Milliy hisoblar tizimi (YaIM)",
+                savol: "Mamlakatda uy xo'jaliklari iste'mol xarajatlari (C) = 420 mlrd $, yalpi investitsiyalar (I) = 150 mlrd $, davlat xaridlari (G) = 130 mlrd $, eksport (X) = 85 mlrd $ va import (M) = 105 mlrd $ bo'lsa, YaIM hajmini aniqlang.",
+                formula: "C = 420 | I = 150 | G = 130 | X = 85 | M = 105\nFormula: YaIM = C + I + G + (X - M)",
+                variantlar: [
                     "A) 700 mlrd dollar",
                     "B) 680 mlrd dollar",
                     "C) 720 mlrd dollar",
                     "D) 890 mlrd dollar"
                 ],
-                correct: 1,
-                solution: "Sof eksport: NX = X - M = 85 - 105 = -20 mlrd $.\nYaIM = 420 + 150 + 130 + (-20) = 680 mlrd dollar."
+                togriJavob: 1, // B variant to'g'ri
+                yechim: "Sof eksport: NX = 85 - 105 = -20 mlrd $.\nYaIM = 420 + 150 + 130 - 20 = 680 mlrd dollar."
             },
             {
-                tag: "5.1. Pul muomalasi va Fisher tenglamasi",
-                text: "Iqtisodiyotda real ishlab chiqarish hajmi (Q) 400 mlrd birlikni, narxlar darajasi (P) 1,5 ni va pulning aylanish tezligi (V) yiliga 5 martani tashkil etadi. Muomalada qancha pul massasi (M) zarur?",
-                data: "Fisher tenglamasi: M × V = P × Q\nQ = 400 | P = 1.5 | V = 5",
-                options: [
+                mavzu: "5.1. Pul muomalasi va Fisher tenglamasi",
+                savol: "Iqtisodiyotda real ishlab chiqarish hajmi (Q) 400 mlrd birlikni, narxlar darajasi (P) 1,5 ni va pulning aylanish tezligi (V) yiliga 5 martani tashkil etadi. Muomalada qancha pul massasi (M) zarur?",
+                formula: "Fisher tenglamasi: M × V = P × Q\nQ = 400 | P = 1.5 | V = 5",
+                variantlar: [
                     "A) 150 mlrd pul birligi",
                     "B) 120 mlrd pul birligi",
                     "C) 100 mlrd pul birligi",
                     "D) 160 mlrd pul birligi"
                 ],
-                correct: 1,
-                solution: "M = (P × Q) / V = (1,5 × 400) / 5 = 600 / 5 = 120 mlrd pul birligi."
-            },
-            {
-                tag: "4.3. Ishsizlik va Ouken qonuni",
-                text: "Mamlakatda tabiiy ishsizlik darajasi (u*) 5% ga, haqiqiy ishsizlik darajasi (u) esa 8% ga teng. Agar Ouken koeffitsienti 2,5 bo'lsa va potensial YaIM 1 000 mlrd $ bo'lsa, siklik ishsizlik tufayli yo'qotilgan YaIMni toping.",
-                data: "u* = 5% | u = 8% | β = 2.5 | Y* = 1 000 mlrd $\nFormula: Yo'qotish % = β × (u - u*)",
-                options: [
-                    "A) 75 mlrd dollar (7,5%)",
-                    "B) 50 mlrd dollar (5,0%)",
-                    "C) 80 mlrd dollar (8,0%)",
-                    "D) 60 mlrd dollar (6,0%)"
-                ],
-                correct: 0,
-                solution: "1) Siklik ishsizlik: u - u* = 8% - 5% = 3%.\n2) YaIM yo'qotilishi foizi: 2,5 × 3% = 7,5%.\n3) Yo'qotilgan YaIM: 1 000 × 7,5% = 75 mlrd dollar."
-            },
-            {
-                tag: "2.2. Talabning narx elastikligi",
-                text: "Tovar narxi 40 ming so'mdan 50 ming so'mga oshganda, talab miqdori 200 donadan 140 donaga tushdi. Talabning narx bo'yicha elastiklik koeffitsientini (|Ed|) toping.",
-                data: "P1 = 40 -> P2 = 50 (+25%)\nQ1 = 200 -> Q2 = 140 (-30%)",
-                options: [
-                    "A) 1,2 (Elastik talab)",
-                    "B) 0,83 (Noelastik talab)",
-                    "C) 1,5 (Elastik talab)",
-                    "D) 1,0 (Birlik elastik)"
-                ],
-                correct: 0,
-                solution: "%ΔP = ((50-40)/40)*100% = +25%.\n%ΔQ = ((140-200)/200)*100% = -30%.\n|Ed| = |-30% / 25%| = 1,2."
-            },
-            {
-                tag: "2.3. Korxona xarajatlari va foyda",
-                text: "Korxonaning doimiy xarajatlari (FC) 60 mln so'm. 500 dona mahsulot ishlab chiqarilganda o'rtacha o'zgaruvchan xarajat (AVC) 180 ming so'mga teng. Mahsulot narxi 350 ming so'm bo'lsa, sof foydani (π) toping.",
-                data: "FC = 60 mln | Q = 500 | AVC = 180 ming | P = 350 ming\nπ = TR - TC",
-                options: [
-                    "A) 25 mln so'm",
-                    "B) 35 mln so'm",
-                    "C) 45 mln so'm",
-                    "D) 15 mln so'm"
-                ],
-                correct: 0,
-                solution: "TR = 500 × 350 ming = 175 mln so'm.\nVC = 500 × 180 ming = 90 mln so'm.\nTC = 60 + 90 = 150 mln so'm.\nFoyda = 175 - 150 = 25 mln so'm."
-            },
-            {
-                tag: "5.1. Bank multiplikatori",
-                text: "Markaziy bank majburiy zaxira normasini (rr) 12,5% etib belgiladi. Tijorat bankiga 40 mlrd so'm dastlabki depozit qo'yilsa, bank tizimi maksimal qancha pul taklifini yarata oladi?",
-                data: "rr = 12,5% (0.125) | D0 = 40 mlrd so'm\nMultiplikator: m = 1 / rr",
-                options: [
-                    "A) 320 mlrd so'm",
-                    "B) 280 mlrd so'm",
-                    "C) 360 mlrd so'm",
-                    "D) 400 mlrd so'm"
-                ],
-                correct: 0,
-                solution: "Bank multiplikatori: m = 1 / 0,125 = 8.\nUmumiy depozit emissiyasi: 40 mlrd × 8 = 320 mlrd so'm."
-            },
-            {
-                tag: "4.2. Keyns multiplikatori",
-                text: "Iste'molga chekli moyillik (MPC) 0,75 ga teng. Davlat xarajatlari (ΔG) 30 mlrd dollarga oshirilsa, yalpi daromad (ΔY) qanchaga ortadi?",
-                data: "MPC = 0,75 | ΔG = 30 mlrd $\nMultiplikator: k = 1 / (1 - MPC)",
-                options: [
-                    "A) 120 mlrd dollarga",
-                    "B) 90 mlrd dollarga",
-                    "C) 150 mlrd dollarga",
-                    "D) 75 mlrd dollarga"
-                ],
-                correct: 0,
-                solution: "k = 1 / (1 - 0,75) = 4.\nΔY = 4 × 30 mlrd $ = 120 mlrd dollar."
-            },
-            {
-                tag: "6.2. Qimmatli qog'ozlar bozori",
-                text: "Nominal qiymati 50 000 so'm bo'lgan oddiy aksiya bo'yicha yillik 24% dividend to'lanadi. Bank foiz stavkasi 15% bo'lsa, aksiyaning bozor kursini toping.",
-                data: "Nominal = 50 000 so'm | Dividend = 24% | Foiz (r) = 15%\nKurs = (Dividend summasi / r) × 100%",
-                options: [
-                    "A) 80 000 so'm",
-                    "B) 75 000 so'm",
-                    "C) 60 000 so'm",
-                    "D) 90 000 so'm"
-                ],
-                correct: 0,
-                solution: "Dividend = 50 000 × 0,24 = 12 000 so'm.\nAksiya kursi = (12 000 / 15) × 100 = 80 000 so'm."
-            },
-            {
-                tag: "5.1. Real va nominal foiz stavkasi",
-                text: "Yillik nominal foiz stavkasi (i) 26% ni, yillik inflyatsiya darajasi (π) esa 12% ni tashkil etdi. Aniq Fisher formulasiga ko'ra real foiz stavkasini (r) toping.",
-                data: "i = 26% (0.26) | π = 12% (0.12)\nFormula: r = (1 + i) / (1 + π) - 1",
-                options: [
-                    "A) 12,5%",
-                    "B) 14,0%",
-                    "C) 11,8%",
-                    "D) 13,5%"
-                ],
-                correct: 0,
-                solution: "1 + r = 1,26 / 1,12 = 1,125 => r = 0,125 yoki 12,5%."
+                togriJavob: 1, // B variant to'g'ri
+                yechim: "M = (P × Q) / V = (1,5 × 400) / 5 = 120 mlrd pul birligi."
             }
+
+            // YANGI SAVOL QO'SHISH UCHUN YUQORIDAGI { ... } BLOKDAN NUSXA OLIB SHU PASTGA QO'YING:
+
         ];
 
-        // 4. STATE MANAGEMENT
-        let lastSection = 'home';
-        let activeQIndex = 0;
-        let userAnswers = new Array(quizQuestions.length).fill(null);
-        let solvedVariantsMap = {
-            1: { correct: 18, total: 35, pct: 51 }
+
+        // =====================================================
+        // 1. OQ / QORA GRADIENT REJIM BOSHQARUVI
+        // =====================================================
+        function initTheme() {
+            const savedTheme = localStorage.getItem('iq_theme_mode') || 'dark';
+            setTheme(savedTheme);
+        }
+
+        function setTheme(mode) {
+            const htmlEl = document.documentElement;
+            const iconEl = document.getElementById('themeIcon');
+            if (mode === 'dark') {
+                htmlEl.classList.remove('light');
+                htmlEl.classList.add('dark');
+                iconEl.className = 'ph-fill ph-sun text-base text-amber-400';
+            } else {
+                htmlEl.classList.remove('dark');
+                htmlEl.classList.add('light');
+                iconEl.className = 'ph-fill ph-moon-stars text-base text-slate-800';
+            }
+            localStorage.setItem('iq_theme_mode', mode);
+        }
+
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.contains('dark');
+            setTheme(isDark ? 'light' : 'dark');
+        }
+        initTheme();
+
+        // =====================================================
+        // 2. TELEGRAM WEB APP AVTOMATIK PROFIL (REYTINGSIZ)
+        // =====================================================
+        const tgApp = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
+        let tgUser = {
+            name: "Foydalanuvchi",
+            handle: "@telegram_user",
+            avatar: "https://ui-avatars.com/api/?name=IQ&background=0C2D22&color=34D399&bold=true"
         };
 
-        function showOnlyView(viewId) {
+        if (tgApp) {
+            tgApp.ready();
+            tgApp.expand();
+            if (tgApp.initDataUnsafe && tgApp.initDataUnsafe.user) {
+                const u = tgApp.initDataUnsafe.user;
+                tgUser.name = [u.first_name, u.last_name].filter(Boolean).join(" ") || "Foydalanuvchi";
+                tgUser.handle = u.username ? `@${u.username}` : `ID: ${u.id}`;
+                tgUser.avatar = u.photo_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(tgUser.name)}&background=0C2D22&color=34D399&bold=true`;
+            }
+        }
+
+        let userStats = JSON.parse(localStorage.getItem('iq_econ_stats_2026')) || {
+            solved2026: 1,
+            solvedAtt: 36,
+            variantsSolved: { 1: true }
+        };
+
+        function persistUserStats() {
+            localStorage.setItem('iq_econ_stats_2026', JSON.stringify(userStats));
+            syncProfileUI();
+        }
+
+        function syncProfileUI() {
+            document.getElementById('headerUserName').textContent = tgUser.name;
+            document.getElementById('headerAvatar').src = tgUser.avatar;
+            document.getElementById('modalUserName').textContent = tgUser.name;
+            document.getElementById('modalUserHandle').textContent = tgUser.handle;
+            document.getElementById('modalAvatar').src = tgUser.avatar;
+
+            const varCount = Object.keys(userStats.variantsSolved).length;
+            document.getElementById('stat2026Count').textContent = userStats.solved2026;
+            document.getElementById('statAttCount').textContent = userStats.solvedAtt;
+            document.getElementById('statVarCount').textContent = `${varCount}/70`;
+        }
+
+        function openProfileModal() {
+            syncProfileUI();
+            const m = document.getElementById('profileModal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+        }
+
+        function closeProfileModal() {
+            const m = document.getElementById('profileModal');
+            m.classList.add('hidden');
+            m.classList.remove('flex');
+        }
+
+        // =====================================================
+        // 3. MAVZULAR VA BO'LIMLAR RO'YXATI
+        // =====================================================
+        const topics21Data = [
+            "1-mavzu: Iqtisodiyotga kirish. Ehtiyojlar va resurslar cheklanganligi",
+            "2-mavzu: Muqobil qiymat va Ishlab chiqarish imkoniyatlari egri chizig'i (PPF)",
+            "3-mavzu: Iqtisodiy tizimlar va mulkchilik shakllari",
+            "4-mavzu: Bozor mexanizmi: Talab va Taklif qonuni hamda muvozanat narx",
+            "5-mavzu: Talab va taklif elastikligi (Narx, daromad va kesishgan elastiklik)",
+            "6-mavzu: Iste'molchi xulq-atvori: Umumiy va chekli naflilik (TU, MU)",
+            "7-mavzu: Korxona xarajatlari (FC, VC, TC, MC) va foyda maksimizatsiyasi",
+            "8-mavzu: Raqobat turlari: Mukammal raqobat, Monopoliya va Oligopoliya",
+            "9-mavzu: Ishlab chiqarish omillari bozori: Ish haqi, Renta va Foiz",
+            "10-mavzu: Milliy hisoblar tizimi: Nominal va Real YaIM (GDP) hamda deflyator",
+            "11-mavzu: Yalpi talab (AD) va Yalpi taklif (AS) makroiqtisodiy muvozanati",
+            "12-mavzu: Iste'mol funksiyasi (MPC, MPS) va Keyns xarajatlar multiplikatori",
+            "13-mavzu: Iqtisodiy sikllar, Ishsizlik turlari va Ouken qonuni masalalari",
+            "14-mavzu: Pul muomalasi qonuni, Fisher tenglamasi (MV=PQ) va Inflyatsiya",
+            "15-mavzu: Bank tizimi, Markaziy bank siyosati va pul multiplikatori",
+            "16-mavzu: Davlat byudjeti, Soliq tizimi va Laffer egri chizig'i",
+            "17-mavzu: Daromadlar tengsizligi, Lorens egri chizig'i va Jini koeffitsienti",
+            "18-mavzu: Xalqaro savdo: Mutlaq va qiyosiy ustunlik hamda bojxona tariflari",
+            "19-mavzu: Valyuta kurslari, Xarid qobiliyati pariteti va To'lov balansi",
+            "20-mavzu: Qimmatli qog'ozlar bozori (Aksiya, Obligatsiya), Menejment va Marketing",
+            "21-mavzu: Attestatsiya blok imtihoni (kompleks iqtisodiy sinov 2026)"
+        ];
+
+        const specs15Data = [
+            "1.1. Iqtisodiy nazariya asoslari, ehtiyojlar va PPF egri chizig'i",
+            "1.2. Iqtisodiy tizimlar, mulkchilik va bozor infratuzilmasi",
+            "2.1. Talab va taklif qonuni, bozor muvozanati va taqchillik",
+            "2.2. Talab va taklif elastikligi hamda iste'molchi nafliligi",
+            "2.3. Korxona xarajatlari, amortizatsiya, tannarx va foyda",
+            "3.1. Raqobat va monopoliya, bozor tuzilmalari tahlili",
+            "3.2. Ishlab chiqarish omillari bozori: Ish haqi, renta va foiz",
+            "4.1. Milliy hisoblar tizimi: YaIM (GDP), YaMD va deflyator",
+            "4.2. Makroiqtisodiy muvozanat (AD-AS) va Keyns multiplikatori",
+            "4.3. Iqtisodiy sikllar, ishsizlik darajasi va Ouken qonuni",
+            "5.1. Pul muomalasi (Fisher tenglamasi), inflyatsiya va bank multiplikatori",
+            "5.2. Davlat byudjeti, soliq tizimi, Laffer va Lorens egri chiziqlari",
+            "6.1. Tadbirkorlik faoliyati, menejment, marketing va biznes-reja",
+            "6.2. Qimmatli qog'ozlar bozori: Aksiya kursi, obligatsiya va dividend",
+            "7.1. Jahon iqtisodiyoti, xalqaro savdo, valyuta kursi va to'lov balansi"
+        ];
+
+        // =====================================================
+        // 4. SAHIFALAR ARO O'TISH VA TEST YECHISH TIZIMI
+        // =====================================================
+        let activeQIndex = 0;
+        let userAnswers = [];
+        let remainingSec = 60 * 60;
+        let timerInterval = null;
+        let lastSection = 'home';
+
+        function showOnlyView(vId) {
             ['view-home', 'view-topics', 'view-specs', 'view-variants', 'view-quiz'].forEach(id => {
                 document.getElementById(id).classList.add('hidden');
             });
-            document.getElementById(viewId).classList.remove('hidden');
+            document.getElementById(vId).classList.remove('hidden');
 
             const backBtn = document.getElementById('topBackBtn');
-            if (viewId === 'view-home') {
+            if (vId === 'view-home') {
                 backBtn.classList.add('hidden');
                 backBtn.classList.remove('inline-flex');
-                document.getElementById('headerSubText').textContent = "Yagona interaktiv test va imtihon platformasi";
             } else {
                 backBtn.classList.remove('hidden');
                 backBtn.classList.add('inline-flex');
@@ -738,165 +639,75 @@
         }
 
         function goHome() {
-            lastSection = 'home';
+            clearInterval(timerInterval);
             showOnlyView('view-home');
         }
 
         function openSection(sec) {
             lastSection = sec;
             if (sec === 'topics') {
-                document.getElementById('headerSubText').textContent = "Mavzulashtirilgan 2026-yil testlari (21 ta mavzu)";
-                renderTopicsGrid('');
+                document.getElementById('topicsGrid').innerHTML = topics21Data.map((title) => `
+                    <div onclick="startQuiz('${title.replace(/'/g, "\\'")}')" class="neo-card p-5 flex flex-col justify-between gap-3 cursor-pointer group">
+                        <div class="flex items-start justify-between gap-2">
+                            <h4 class="text-sm font-extrabold text-slate-900 dark:text-white group-hover:text-emerald-500 leading-snug">${title}</h4>
+                            <span class="px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold shrink-0">🔓 Ochiq</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs font-bold text-emerald-700 dark:text-emerald-400 pt-2 border-t border-slate-200/60 dark:border-emerald-900/40">
+                            <span>Barcha savollar ochiq</span>
+                            <span>Boshlash →</span>
+                        </div>
+                    </div>
+                `).join('');
                 showOnlyView('view-topics');
             } else if (sec === 'specs') {
-                document.getElementById('headerSubText').textContent = "Mavzulashtirilgan attestatsiya testlari (15 ta bo'lim)";
-                renderSpecsGrid('');
+                document.getElementById('specsGrid').innerHTML = specs15Data.map((title) => `
+                    <div onclick="startQuiz('${title.replace(/'/g, "\\'")}')" class="neo-card p-5 flex flex-col justify-between gap-3 cursor-pointer group">
+                        <div class="flex items-start justify-between gap-2">
+                            <h4 class="text-sm font-extrabold text-slate-900 dark:text-white group-hover:text-amber-500 leading-snug">📊 ${title}</h4>
+                            <span class="px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-800 dark:text-amber-300 text-[10px] font-bold shrink-0">🔓 Ochiq</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs font-bold text-amber-700 dark:text-amber-400 pt-2 border-t border-slate-200/60 dark:border-emerald-900/40">
+                            <span>Spetsifikatsiya testi</span>
+                            <span>Mashq qilish →</span>
+                        </div>
+                    </div>
+                `).join('');
                 showOnlyView('view-specs');
             } else if (sec === 'variants') {
-                document.getElementById('headerSubText').textContent = "Attestatsiya 35 talik testlar (70 ta variant)";
-                filterVariants('all');
+                document.getElementById('variantsGrid').innerHTML = Array.from({length: 70}, (_, i) => `
+                    <div onclick="startQuiz('${i+1}-variant (Attestatsiya 35 talik)')" class="neo-card p-3.5 text-center cursor-pointer flex flex-col justify-between gap-2 group">
+                        <div>
+                            <div class="text-sm font-extrabold text-slate-900 dark:text-white group-hover:text-emerald-500">${i+1}-variant</div>
+                            <div class="text-[10px] text-slate-500 dark:text-slate-400">60 daqiqa</div>
+                        </div>
+                        <span class="text-[11px] font-extrabold text-emerald-700 dark:text-emerald-400">🔓 Boshlash →</span>
+                    </div>
+                `).join('');
                 showOnlyView('view-variants');
             }
         }
 
-        // 5. RENDER 21 TOPICS (ALL FREE & OPEN)
-        function renderTopicsGrid(query) {
-            const q = (query || '').toLowerCase();
-            const box = document.getElementById('topicsGrid');
-            const list = topics21Data.filter(t => t.title.toLowerCase().includes(q));
-
-            box.innerHTML = list.map(t => {
-                const pct = Math.min(100, Math.round((t.solved / t.count) * 100));
-                return `
-                    <div onclick="startQuizSession('${t.title.replace(/'/g, "\\'")}', 'Ochiq • ${t.count} ta test')" class="neo-card p-4 flex flex-col justify-between gap-3 cursor-pointer group">
-                        <div class="flex items-start justify-between gap-2.5">
-                            <h4 class="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-700 leading-snug">
-                                ${t.title}
-                            </h4>
-                            <span class="w-12 h-12 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-700 flex flex-col items-center justify-center shrink-0 text-[10px] font-extrabold leading-tight">
-                                <span>🔓 Ochiq</span>
-                                <span>${t.count} ta</span>
-                            </span>
-                        </div>
-
-                        <div class="space-y-2 pt-1">
-                            <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                                <div class="h-full bg-emerald-500" style="width: ${pct}%"></div>
-                            </div>
-                            <div class="flex items-center justify-between text-[11px] font-semibold">
-                                <span class="text-slate-500">Ishlangan: ${t.solved} / ${t.count} (To'g'ri: ${t.correct})</span>
-                                <span class="text-emerald-700 font-bold group-hover:translate-x-0.5 transition-transform">Boshlash →</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // 6. RENDER 15 SPECIFICATION SECTIONS (ALL FREE & OPEN)
-        function renderSpecsGrid(query) {
-            const q = (query || '').toLowerCase();
-            const box = document.getElementById('specsGrid');
-            const list = specs15Data.filter(s => s.code.toLowerCase().includes(q) || s.title.toLowerCase().includes(q));
-
-            box.innerHTML = list.map(s => {
-                const pct = Math.min(100, Math.round((s.solved / s.count) * 100));
-                return `
-                    <div onclick="startQuizSession('${s.code}. ${s.title.replace(/'/g, "\\'")}', '${s.specInfo}')" class="neo-card p-4 flex flex-col justify-between gap-3 cursor-pointer group">
-                        <div class="space-y-1.5">
-                            <div class="flex items-start justify-between gap-2">
-                                <h4 class="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-700 leading-snug">
-                                    📊 ${s.code}. ${s.title}
-                                </h4>
-                                <span class="w-12 h-12 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-700 flex flex-col items-center justify-center shrink-0 text-[10px] font-extrabold leading-tight">
-                                    <span>🔓 Ochiq</span>
-                                    <span>${s.count} ta</span>
-                                </span>
-                            </div>
-                            <p class="text-[11px] text-slate-500 font-medium">${s.specInfo}</p>
-                        </div>
-
-                        <div class="space-y-2 pt-1">
-                            <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                                <div class="h-full bg-emerald-500" style="width: ${pct}%"></div>
-                            </div>
-                            <div class="flex items-center justify-between text-[11px] font-semibold">
-                                <span class="text-slate-500">Ishlangan: ${s.solved} / ${s.count} (To'g'ri: ${s.correct})</span>
-                                <span class="text-emerald-700 font-bold group-hover:translate-x-0.5 transition-transform">Mashq qilish →</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // 7. RENDER 70 VARIANTS (ALL 70 FREE & UNLOCKED)
-        function filterVariants(mode) {
-            ['all', 'unsolved', 'solved'].forEach(m => {
-                const btn = document.getElementById(`vTab-${m}`);
-                if (m === mode) {
-                    btn.className = "px-4 py-1.5 rounded-full text-xs font-bold bg-pineDark text-white";
-                } else {
-                    btn.className = "px-4 py-1.5 rounded-full text-xs font-bold bg-white border border-slate-300 text-slate-700 hover:bg-slate-50";
-                }
-            });
-
-            const box = document.getElementById('variantsGrid');
-            let html = '';
-
-            for (let i = 1; i <= 70; i++) {
-                const solvedObj = solvedVariantsMap[i];
-                const isSolved = Boolean(solvedObj);
-
-                if (mode === 'solved' && !isSolved) continue;
-                if (mode === 'unsolved' && isSolved) continue;
-
-                if (isSolved) {
-                    html += `
-                        <div onclick="startQuizSession('${i}-variant (Attestatsiya 35 talik)', '35 ta savol • 90 daqiqa')" class="neo-card p-3.5 text-center border-2 border-emerald-500/60 bg-emerald-50/30 flex flex-col justify-between gap-2.5 cursor-pointer group">
-                            <div>
-                                <h4 class="text-sm font-extrabold text-slate-900">${i}-variant</h4>
-                                <p class="text-[11px] text-slate-500 mt-0.5">35 ta savol • 90 daqiqa</p>
-                            </div>
-                            <span class="px-2 py-1 rounded-lg bg-emerald-100 text-emerald-800 text-[11px] font-extrabold">
-                                Natija: ${solvedObj.correct}/35 (${solvedObj.pct}%)
-                            </span>
-                        </div>
-                    `;
-                } else {
-                    html += `
-                        <div onclick="startQuizSession('${i}-variant (Attestatsiya 35 talik)', '35 ta savol • 90 daqiqa')" class="neo-card p-3.5 text-center flex flex-col justify-between gap-2.5 cursor-pointer group">
-                            <div>
-                                <h4 class="text-sm font-extrabold text-slate-900 group-hover:text-emerald-700">${i}-variant</h4>
-                                <p class="text-[11px] text-slate-500 mt-0.5">35 ta savol • 90 daqiqa</p>
-                            </div>
-                            <span class="text-[11px] font-extrabold text-emerald-700 group-hover:underline">
-                                🔓 Bepul • Boshlash →
-                            </span>
-                        </div>
-                    `;
-                }
-            }
-
-            box.innerHTML = html;
-        }
-
-        function startRandomVariant() {
-            const rnd = Math.floor(Math.random() * 70) + 1;
-            startQuizSession(`${rnd}-variant (Tasodifiy variant)`, '35 ta savol • 90 daqiqa');
-        }
-
-        // 8. QUIZ ENGINE
-        function startQuizSession(title, badge) {
-            document.getElementById('quizHeaderTitle').textContent = title;
-            document.getElementById('quizContextBadge').textContent = badge;
-            userAnswers = new Array(quizQuestions.length).fill(null);
+        function startQuiz(title) {
+            document.getElementById('quizHeaderTitle').textContent = title || "Iqtisodiyot Testi";
+            document.getElementById('quizContextBadge').textContent = `${SAVOLLAR_BAZASI.length} ta savol • 60 daqiqa`;
+            userAnswers = new Array(SAVOLLAR_BAZASI.length).fill(null);
             activeQIndex = 0;
+
+            remainingSec = 60 * 60;
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if (remainingSec > 0) remainingSec--;
+                const m = String(Math.floor(remainingSec / 60)).padStart(2, '0');
+                const s = String(remainingSec % 60).padStart(2, '0');
+                document.getElementById('quizTimerText').textContent = `${m}:${s}`;
+            }, 1000);
+
             renderActiveQuestion();
             showOnlyView('view-quiz');
         }
 
         function closeQuizBack() {
+            clearInterval(timerInterval);
             if (lastSection === 'topics' || lastSection === 'specs' || lastSection === 'variants') {
                 openSection(lastSection);
             } else {
@@ -905,140 +716,100 @@
         }
 
         function renderActiveQuestion() {
-            const q = quizQuestions[activeQIndex];
-            document.getElementById('qTopicTag').textContent = q.tag;
-            document.getElementById('qCounterLabel').textContent = `Savol ${activeQIndex + 1} / ${quizQuestions.length}`;
-            document.getElementById('qTextDisplay').textContent = q.text;
-            document.getElementById('qDataBox').textContent = q.data;
+            const q = SAVOLLAR_BAZASI[activeQIndex];
+            document.getElementById('qTopicTag').textContent = q.mavzu;
+            document.getElementById('qCounterLabel').textContent = `Savol ${activeQIndex + 1} / ${SAVOLLAR_BAZASI.length}`;
+            document.getElementById('qTextDisplay').textContent = q.savol;
+
+            const dataBox = document.getElementById('qDataBox');
+            if (q.formula && q.formula.trim() !== '') {
+                dataBox.classList.remove('hidden');
+                dataBox.textContent = q.formula;
+            } else {
+                dataBox.classList.add('hidden');
+            }
 
             // Number Pills
-            const pillsContainer = document.getElementById('quizNumberPills');
-            pillsContainer.innerHTML = quizQuestions.map((_, idx) => {
-                let style = "bg-slate-100 text-slate-700 border-slate-200";
+            const pillsBox = document.getElementById('quizNumberPills');
+            pillsBox.innerHTML = SAVOLLAR_BAZASI.map((_, idx) => {
+                let cls = "bg-stone-100 dark:bg-emerald-950 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-emerald-800";
                 if (userAnswers[idx] !== null) {
-                    style = userAnswers[idx] === quizQuestions[idx].correct
+                    cls = userAnswers[idx] === SAVOLLAR_BAZASI[idx].togriJavob
                         ? "bg-emerald-600 text-white border-emerald-600"
                         : "bg-rose-600 text-white border-rose-600";
                 }
-                if (idx === activeQIndex) {
-                    style += " ring-2 ring-amber-500 font-extrabold";
-                }
-                return `<button onclick="jumpToQ(${idx})" class="w-8 h-8 rounded-lg text-xs font-mono font-bold border ${style} transition-all">${idx + 1}</button>`;
+                if (idx === activeQIndex) cls += " ring-2 ring-amber-400 font-extrabold";
+                return `<button onclick="jumpToQ(${idx})" class="w-8 h-8 rounded-lg text-xs font-mono font-bold border ${cls} cursor-pointer">${idx + 1}</button>`;
             }).join('');
 
             // Options
-            const optsContainer = document.getElementById('qOptionsContainer');
             const chosen = userAnswers[activeQIndex];
-
-            optsContainer.innerHTML = q.options.map((opt, idx) => {
-                let cls = "bg-white hover:border-emerald-500 border-slate-200 text-slate-800";
-                let icon = `<span class="w-6 h-6 rounded-md bg-slate-100 text-slate-600 font-mono text-xs font-bold flex items-center justify-center shrink-0">${idx + 1}</span>`;
-
+            const optsBox = document.getElementById('qOptionsContainer');
+            optsBox.innerHTML = q.variantlar.map((opt, idx) => {
+                let cls = "bg-white dark:bg-emerald-950/50 border-slate-200 dark:border-emerald-800/70 hover:border-emerald-500 text-slate-800 dark:text-slate-100";
                 if (chosen !== null) {
-                    if (idx === q.correct) {
-                        cls = "bg-emerald-50 border-2 border-emerald-600 text-emerald-950 font-bold";
-                        icon = `<i class="ph-fill ph-check-circle text-emerald-600 text-xl shrink-0"></i>`;
-                    } else if (idx === chosen && chosen !== q.correct) {
-                        cls = "bg-rose-50 border-2 border-rose-500 text-rose-900";
-                        icon = `<i class="ph-fill ph-x-circle text-rose-600 text-xl shrink-0"></i>`;
+                    if (idx === q.togriJavob) {
+                        cls = "bg-emerald-500/20 border-2 border-emerald-500 text-emerald-950 dark:text-emerald-200 font-bold";
+                    } else if (idx === chosen && chosen !== q.togriJavob) {
+                        cls = "bg-rose-500/20 border-2 border-rose-500 text-rose-950 dark:text-rose-200";
                     }
                 }
-
                 return `
-                    <button onclick="selectQuizOption(${idx})" class="w-full p-3.5 rounded-xl border ${cls} flex items-center justify-between gap-3 text-left text-xs sm:text-sm transition-all">
-                        <span>${opt}</span>
-                        ${icon}
+                    <button onclick="selectOpt(${idx})" class="w-full p-3.5 rounded-xl border ${cls} text-left text-xs sm:text-sm font-medium transition-all cursor-pointer">
+                        ${opt}
                     </button>
                 `;
             }).join('');
 
-            // Solution Box
             const solBox = document.getElementById('qSolutionBox');
             if (chosen !== null) {
                 solBox.classList.remove('hidden');
-                document.getElementById('qSolutionText').textContent = q.solution;
+                document.getElementById('qSolutionText').textContent = q.yechim;
             } else {
                 solBox.classList.add('hidden');
             }
 
-            // Counters
-            const correctCount = userAnswers.filter((a, i) => a === quizQuestions[i].correct).length;
-            document.getElementById('quizCorrectCounter').textContent = `${correctCount} / ${quizQuestions.length}`;
+            const correctCount = userAnswers.filter((a, i) => a === SAVOLLAR_BAZASI[i].togriJavob).length;
+            document.getElementById('quizCorrectCounter').textContent = `${correctCount} / ${SAVOLLAR_BAZASI.length}`;
             document.getElementById('quizScoreCounter').textContent = correctCount * 2;
         }
 
-        function selectQuizOption(idx) {
+        function selectOpt(idx) {
             if (userAnswers[activeQIndex] !== null) return;
             userAnswers[activeQIndex] = idx;
+            if (idx === SAVOLLAR_BAZASI[activeQIndex].togriJavob) {
+                userStats.solved2026 += 1;
+                persistUserStats();
+            }
             renderActiveQuestion();
         }
 
-        function jumpToQ(idx) {
-            activeQIndex = idx;
-            renderActiveQuestion();
-        }
+        function jumpToQ(idx) { activeQIndex = idx; renderActiveQuestion(); }
+        function nextQuizQ() { activeQIndex = (activeQIndex + 1) % SAVOLLAR_BAZASI.length; renderActiveQuestion(); }
+        function prevQuizQ() { activeQIndex = (activeQIndex - 1 + SAVOLLAR_BAZASI.length) % SAVOLLAR_BAZASI.length; renderActiveQuestion(); }
+        function resetQuizProgress() { userAnswers = new Array(SAVOLLAR_BAZASI.length).fill(null); activeQIndex = 0; renderActiveQuestion(); }
 
-        function nextQuizQ() {
-            activeQIndex = (activeQIndex + 1) % quizQuestions.length;
-            renderActiveQuestion();
-        }
-
-        function prevQuizQ() {
-            activeQIndex = (activeQIndex - 1 + quizQuestions.length) % quizQuestions.length;
-            renderActiveQuestion();
-        }
-
-        function resetQuizProgress() {
-            userAnswers = new Array(quizQuestions.length).fill(null);
-            activeQIndex = 0;
-            renderActiveQuestion();
-        }
-
-        // 9. 90-MINUTE COUNTDOWN TIMER
-        let remainingSec = 90 * 60;
-        setInterval(() => {
-            if (remainingSec > 0) remainingSec--;
-            const m = String(Math.floor(remainingSec / 60)).padStart(2, '0');
-            const s = String(remainingSec % 60).padStart(2, '0');
-            const el = document.getElementById('quizTimerText');
-            if (el) el.textContent = `${m}:${s}`;
-        }, 1000);
-
-        // 10. CALCULATOR MODAL
-        function openCalcModal() {
-            const m = document.getElementById('calcModal');
-            m.classList.remove('hidden');
-            m.classList.add('flex');
-        }
-        function closeCalcModal() {
-            const m = document.getElementById('calcModal');
-            m.classList.add('hidden');
-            m.classList.remove('flex');
-        }
+        // =====================================================
+        // 5. KALKULYATOR
+        // =====================================================
+        function openCalcModal() { document.getElementById('calcModal').classList.remove('hidden'); document.getElementById('calcModal').classList.add('flex'); }
+        function closeCalcModal() { document.getElementById('calcModal').classList.add('hidden'); document.getElementById('calcModal').classList.remove('flex'); }
         function evaluateCalcExpr() {
-            const raw = document.getElementById('calcExprInput').value;
-            const out = document.getElementById('calcExprOutput');
             try {
+                const raw = document.getElementById('calcExprInput').value;
                 if (!/^[0-9+\-*/().\s]+$/.test(raw)) {
-                    out.textContent = "Faqat sonlar va +, -, *, / amallarini kiriting";
+                    document.getElementById('calcExprOutput').textContent = "Faqat son va amallar kiriting";
                     return;
                 }
                 const res = Function(`"use strict"; return (${raw})`)();
-                out.textContent = `Natija: ${Number(res.toFixed(4))}`;
-            } catch (e) {
-                out.textContent = "Ifodada xatolik bor";
+                document.getElementById('calcExprOutput').textContent = `Natija: ${Number(res.toFixed(4))}`;
+            } catch(e) {
+                document.getElementById('calcExprOutput').textContent = "Ifodada xatolik";
             }
         }
-        function quickGdp() {
-            const c = parseFloat(document.getElementById('cVal').value) || 0;
-            const i = parseFloat(document.getElementById('iVal').value) || 0;
-            const g = parseFloat(document.getElementById('gVal').value) || 0;
-            const x = parseFloat(document.getElementById('xVal').value) || 0;
-            const m = parseFloat(document.getElementById('mVal').value) || 0;
-            const nx = x - m;
-            document.getElementById('nxOut').textContent = nx;
-            document.getElementById('gdpOut').textContent = c + i + g + nx;
-        }
+
+        // Boshlang'ich yuklash
+        syncProfileUI();
     </script>
 </body>
 </html>
