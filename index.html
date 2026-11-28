@@ -89,6 +89,15 @@
                 radial-gradient(at 12% 88%, rgba(245, 158, 11, 0.22) 0px, transparent 50%),
                 linear-gradient(135deg, #061B14 0%, #0C2D22 55%, #124031 100%);
         }
+
+        /* KALKULYATOR TUGMALARI */
+        .calc-btn {
+            transition: all 0.12s ease;
+            user-select: none;
+        }
+        .calc-btn:active {
+            transform: scale(0.95);
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
@@ -198,14 +207,14 @@
                 </div>
             </div>
 
-            <!-- SARIQ PREMIUM BANNER (Yashil banner pastida, faqat @dilshodtura1985 niki bilan) -->
+            <!-- SARIQ PREMIUM BANNER (69 900 so'm — 1 yilga) -->
             <div id="premiumPromoBanner" class="rounded-2xl p-4 sm:px-6 sm:py-4 bg-amber-50 dark:bg-amber-950/35 border-2 border-amber-400/80 dark:border-amber-500/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 shadow-sm">
                 <div class="space-y-1">
                     <div class="flex items-center gap-2 text-sm sm:text-base font-extrabold text-amber-950 dark:text-amber-200">
-                        <span>💎 Premium foydalanish uchun — 49 900 so'm (2027-yil iyun oyigacha)</span>
+                        <span>💎 Premium foydalanish uchun — 69 900 so'm (1 yilga)</span>
                     </div>
                     <p class="text-xs text-amber-900/90 dark:text-amber-300/85 leading-relaxed">
-                        📌 Yopiq guruh, yangi demo testlar va video yechimlar — barcha 21 ta mavzu, 15 ta bo'lim va 70 ta variantga to'liq kirish uchun Telegramdan <strong>@dilshodtura1985</strong> ga murojaat qiling.
+                        📌 Yopiq guruh, yangi demo testlar va video yechimlar — barcha 21 ta mavzu, 15 ta bo'lim va 70 ta variantga 1 yil to'liq kirish uchun Telegramdan <strong>@dilshodtura1985</strong> ga murojaat qiling.
                     </p>
                 </div>
                 <a href="https://t.me/dilshodtura1985" target="_blank" class="px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs sm:text-sm font-extrabold flex items-center justify-center gap-2 shrink-0 shadow-md transition-all">
@@ -498,9 +507,9 @@
                 </div>
             </div>
 
-            <!-- Premium sotib olish tugmasi (Faqat Demo foydalanuvchilar uchun) -->
+            <!-- Premium sotib olish tugmasi (69 900 so'm - 1 yilga) -->
             <a id="modalBuyPremiumBtn" href="https://t.me/dilshodtura1985" target="_blank" class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white text-xs sm:text-sm font-extrabold flex items-center justify-center gap-2 shadow-md transition-all">
-                <span>💎 Premium ulanish (49 900 so'm) — @dilshodtura1985</span>
+                <span>💎 Premium ulanish (69 900 so'm / 1 yil) — @dilshodtura1985</span>
             </a>
 
             <!-- Action Buttons -->
@@ -526,7 +535,7 @@
             <div>
                 <h3 id="lockedTitle" class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">Ushbu bo'lim yopiq</h3>
                 <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
-                    Barcha <strong>21 ta mavzu</strong>, <strong>15 ta spetsifikatsiya bo'limi</strong> va <strong>70 ta variantni</strong> ochish uchun Premium obunani faollashtiring (<strong>49 900 so'm</strong>).
+                    Barcha <strong>21 ta mavzu</strong>, <strong>15 ta spetsifikatsiya bo'limi</strong> va <strong>70 ta variantni</strong> 1 yilga ochish uchun Premium obunani faollashtiring (<strong>69 900 so'm</strong>).
                 </p>
             </div>
             <div class="p-3 rounded-xl bg-stone-100 dark:bg-emerald-950/70 text-[11px] font-mono text-slate-600 dark:text-emerald-300">
@@ -544,18 +553,77 @@
     </div>
 
     <!-- =====================================================
-         3. KALKULYATOR MODAL
+         3. WINDOWS USLUBIDAGI TO'LIQ MOSLASHUVCHAN KALKULYATOR
          ===================================================== -->
-    <div id="calcModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-xs p-4">
-        <div class="bg-white dark:bg-[#0D1915] w-full max-w-md rounded-3xl p-5 border border-slate-200 dark:border-emerald-800 shadow-2xl space-y-4">
-            <div class="flex items-center justify-between border-b border-slate-100 dark:border-emerald-900/50 pb-3">
-                <h4 class="text-sm font-extrabold">Iqtisodiy Kalkulyator</h4>
-                <button onclick="closeCalcModal()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-emerald-950 cursor-pointer"><i class="ph-bold ph-x"></i></button>
+    <div id="calcModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/75 backdrop-blur-xs p-3 sm:p-4">
+        <div class="bg-[#1C1F26] text-white w-full max-w-[340px] sm:max-w-[360px] rounded-3xl p-4 border border-slate-700/80 shadow-2xl space-y-2.5">
+            
+            <!-- Top Title & Close -->
+            <div class="flex items-center justify-between px-1">
+                <div class="flex items-center gap-2">
+                    <i class="ph-fill ph-calculator text-sky-400 text-base"></i>
+                    <span class="text-xs font-extrabold tracking-wide text-slate-200">Kalkulyator</span>
+                    <span id="calcMemIndicator" class="hidden px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold">M</span>
+                </div>
+                <button onclick="closeCalcModal()" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-rose-600/80 text-slate-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer">
+                    <i class="ph-bold ph-x text-xs"></i>
+                </button>
             </div>
-            <div class="space-y-2">
-                <input type="text" id="calcExprInput" placeholder="400 * 1.5 / 5" class="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 dark:bg-emerald-950 border border-slate-300 dark:border-emerald-800 font-mono text-sm">
-                <button onclick="evaluateCalcExpr()" class="w-full py-2.5 rounded-xl bg-pineDark hover:bg-pineMid text-white text-xs font-bold cursor-pointer">Hisoblash</button>
-                <div id="calcExprOutput" class="p-3 rounded-xl bg-emerald-500/15 font-mono text-sm font-bold text-emerald-900 dark:text-emerald-300">Natija: 0</div>
+
+            <!-- Display Screen -->
+            <div class="bg-[#121419] border border-slate-700/70 rounded-2xl p-3 text-right space-y-1">
+                <div id="calcHistoryLine" class="text-[11px] font-mono text-slate-400 h-4 truncate"></div>
+                <div id="calcMainDisplay" class="text-2xl sm:text-3xl font-mono font-extrabold text-white tracking-tight truncate">0</div>
+            </div>
+
+            <!-- Memory Row (MC, MR, M+, M-, MS) -->
+            <div class="grid grid-cols-5 gap-1 text-[11px] font-mono font-bold">
+                <button onclick="calcMem('MC')" class="calc-btn py-1.5 rounded-lg bg-slate-800/60 hover:bg-slate-700 text-slate-400 hover:text-white cursor-pointer">MC</button>
+                <button onclick="calcMem('MR')" class="calc-btn py-1.5 rounded-lg bg-slate-800/60 hover:bg-slate-700 text-slate-400 hover:text-white cursor-pointer">MR</button>
+                <button onclick="calcMem('M+')" class="calc-btn py-1.5 rounded-lg bg-slate-800/60 hover:bg-slate-700 text-slate-200 cursor-pointer">M+</button>
+                <button onclick="calcMem('M-')" class="calc-btn py-1.5 rounded-lg bg-slate-800/60 hover:bg-slate-700 text-slate-200 cursor-pointer">M−</button>
+                <button onclick="calcMem('MS')" class="calc-btn py-1.5 rounded-lg bg-slate-800/60 hover:bg-slate-700 text-slate-200 cursor-pointer">MS</button>
+            </div>
+
+            <!-- Main Keypad Grid (4 Columns x 6 Rows — Windows Calculator Layout) -->
+            <div class="grid grid-cols-4 gap-1.5 font-sans text-sm sm:text-base font-semibold">
+                <!-- Row 1 -->
+                <button onclick="calcUnary('percent')" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#272B34] hover:bg-[#323743] text-slate-200 cursor-pointer">%</button>
+                <button onclick="calcClearEntry()" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#272B34] hover:bg-[#323743] text-slate-200 cursor-pointer">CE</button>
+                <button onclick="calcClearAll()" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#272B34] hover:bg-[#323743] text-slate-200 cursor-pointer">C</button>
+                <button onclick="calcBackspace()" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#272B34] hover:bg-[#323743] text-slate-200 flex items-center justify-center cursor-pointer">
+                    <i class="ph-bold ph-backspace text-base"></i>
+                </button>
+
+                <!-- Row 2 -->
+                <button onclick="calcUnary('inv')" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#272B34] hover:bg-[#323743] text-slate-200 cursor-pointer">¹/x</button>
+                <button onclick="calcUnary('sqr')" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#272B34] hover:bg-[#323743] text-slate-200 cursor-pointer">x²</button>
+                <button onclick="calcUnary('sqrt')" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#272B34] hover:bg-[#323743] text-slate-200 cursor-pointer">²√x</button>
+                <button onclick="calcSetOp('/')" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#272B34] hover:bg-[#323743] text-sky-400 text-lg cursor-pointer">÷</button>
+
+                <!-- Row 3 -->
+                <button onclick="calcDigit('7')" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#323640] hover:bg-[#3E4350] text-white cursor-pointer">7</button>
+                <button onclick="calcDigit('8')" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#323640] hover:bg-[#3E4350] text-white cursor-pointer">8</button>
+                <button onclick="calcDigit('9')" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#323640] hover:bg-[#3E4350] text-white cursor-pointer">9</button>
+                <button onclick="calcSetOp('*')" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#272B34] hover:bg-[#323743] text-sky-400 text-lg cursor-pointer">×</button>
+
+                <!-- Row 4 -->
+                <button onclick="calcDigit('4')" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#323640] hover:bg-[#3E4350] text-white cursor-pointer">4</button>
+                <button onclick="calcDigit('5')" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#323640] hover:bg-[#3E4350] text-white cursor-pointer">5</button>
+                <button onclick="calcDigit('6')" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#323640] hover:bg-[#3E4350] text-white cursor-pointer">6</button>
+                <button onclick="calcSetOp('-')" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#272B34] hover:bg-[#323743] text-sky-400 text-lg cursor-pointer">−</button>
+
+                <!-- Row 5 -->
+                <button onclick="calcDigit('1')" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#323640] hover:bg-[#3E4350] text-white cursor-pointer">1</button>
+                <button onclick="calcDigit('2')" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#323640] hover:bg-[#3E4350] text-white cursor-pointer">2</button>
+                <button onclick="calcDigit('3')" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#323640] hover:bg-[#3E4350] text-white cursor-pointer">3</button>
+                <button onclick="calcSetOp('+')" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#272B34] hover:bg-[#323743] text-sky-400 text-lg cursor-pointer">+</button>
+
+                <!-- Row 6 -->
+                <button onclick="calcUnary('sign')" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#323640] hover:bg-[#3E4350] text-white cursor-pointer">+/−</button>
+                <button onclick="calcDigit('0')" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#323640] hover:bg-[#3E4350] text-white cursor-pointer">0</button>
+                <button onclick="calcDot()" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#323640] hover:bg-[#3E4350] text-white cursor-pointer">,</button>
+                <button onclick="calcEquals()" class="calc-btn h-11 sm:h-12 rounded-xl bg-[#4CC2FF] hover:bg-[#66CCFF] text-slate-950 font-extrabold text-lg cursor-pointer">=</button>
             </div>
         </div>
     </div>
@@ -564,13 +632,11 @@
         // =========================================================================
         // ★★★ 1. PREMIUM FOYDALANUVCHILAR RO'YXATI (TO'LOV QILGANLAR SHU YERGA) ★★★
         // =========================================================================
-        // To'lov qilgan mijozning Telegram @username (belgisiz) yoki ID raqamini qo'shing:
         const PREMIUM_FOYDALANUVCHILAR = [
-            "@Lazizbek456",
-            "998904002688",
-            ""
+            "dilshodtura1985",
+            "namuna_user123",
+            "123456789"
         ];
-    
 
         // =========================================================================
         // ★★★ 2. SAVOLLAR BAZASI (YANGI SAVOLLARNI SHU YERGA QO'SHASIZ) ★★★
@@ -671,7 +737,6 @@
             }
         }
 
-        // Foydalanuvchi Premium ro'yxatda bormi?
         function checkIsPremiumUser() {
             const normalizedList = PREMIUM_FOYDALANUVCHILAR.map(item => String(item).replace('@', '').trim().toLowerCase());
             if (tgUser.username && normalizedList.includes(tgUser.username)) return true;
@@ -692,7 +757,7 @@
                 document.getElementById('topicsSubDesc').textContent = "Sizda Premium faol — barcha 21 ta mavzu to'liq ochiq!";
                 document.getElementById('specsSubDesc').textContent = "Sizda Premium faol — barcha 15 ta bo'lim to'liq ochiq!";
                 document.getElementById('variantsSubDesc').textContent = "Sizda Premium faol — barcha 70 ta variant to'liq ochiq!";
-                document.getElementById('modalPlanBadge').textContent = "💎 Premium rejim (Barcha testlar ochiq)";
+                document.getElementById('modalPlanBadge').textContent = "💎 Premium rejim (1 yilga faol)";
                 document.getElementById('modalPlanBadge').className = "mt-1 inline-flex items-center px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold";
                 document.getElementById('modalBuyPremiumBtn').classList.add('hidden');
             }
@@ -853,7 +918,7 @@
         ];
 
         // =====================================================
-        // 6. KARTOCHKALARNI CHIZISH (QULFLI VA OCHIQ MANTIQI BILAN)
+        // 6. KARTOCHKALARNI CHIZISH
         // =====================================================
         let activeQIndex = 0;
         let activeQuizKey = 'topic_0';
@@ -949,19 +1014,16 @@
         function openSection(sec) {
             lastSection = sec;
             if (sec === 'topics') {
-                // Faqat 1-mavzu (idx === 0) ochiq, qolganlari Premium bo'lmasa qulf
                 document.getElementById('topicsGrid').innerHTML = topics21Data.map((title, idx) =>
                     buildProgressCardHTML(`topic_${idx}`, title, isPremium || idx === 0)
                 ).join('');
                 showOnlyView('view-topics');
             } else if (sec === 'specs') {
-                // Faqat 1.1-bo'lim (idx === 0) ochiq, qolganlari Premium bo'lmasa qulf
                 document.getElementById('specsGrid').innerHTML = specs15Data.map((title, idx) =>
                     buildProgressCardHTML(`spec_${idx}`, title, isPremium || idx === 0)
                 ).join('');
                 showOnlyView('view-specs');
             } else if (sec === 'variants') {
-                // Faqat 1, 2, 3-variantlar (i < 3) ochiq, qolganlari Premium bo'lmasa qulf
                 document.getElementById('variantsGrid').innerHTML = Array.from({length: 70}, (_, i) => {
                     const key = `var_${i + 1}`;
                     const p = getCardProgress(key);
@@ -1152,23 +1214,185 @@
         function prevQuizQ() { activeQIndex = (activeQIndex - 1 + SAVOLLAR_BAZASI.length) % SAVOLLAR_BAZASI.length; renderActiveQuestion(); }
 
         // =====================================================
-        // 8. KALKULYATOR
+        // 8. WINDOWS USLUBIDAGI TO'LIQ KALKULYATOR MANTIQI
         // =====================================================
-        function openCalcModal() { document.getElementById('calcModal').classList.remove('hidden'); document.getElementById('calcModal').classList.add('flex'); }
-        function closeCalcModal() { document.getElementById('calcModal').classList.add('hidden'); document.getElementById('calcModal').classList.remove('flex'); }
-        function evaluateCalcExpr() {
-            try {
-                const raw = document.getElementById('calcExprInput').value;
-                if (!/^[0-9+\-*/().\s]+$/.test(raw)) {
-                    document.getElementById('calcExprOutput').textContent = "Faqat son va amallar kiriting";
+        let cCurrent = "0";
+        let cPrev = null;
+        let cOp = null;
+        let cWaitNew = false;
+        let cMemory = 0;
+
+        function openCalcModal() {
+            const m = document.getElementById('calcModal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+            updateCalcDisplay();
+        }
+
+        function closeCalcModal() {
+            const m = document.getElementById('calcModal');
+            m.classList.add('hidden');
+            m.classList.remove('flex');
+        }
+
+        function formatCalcNumber(numStr) {
+            if (numStr === "Xato" || numStr === "0 ga bo'linmaydi") return numStr;
+            const parts = String(numStr).split('.');
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+            return parts.join(',');
+        }
+
+        function updateCalcDisplay(historyTxt) {
+            document.getElementById('calcMainDisplay').textContent = formatCalcNumber(cCurrent);
+            if (historyTxt !== undefined) {
+                document.getElementById('calcHistoryLine').textContent = historyTxt;
+            }
+            const memBadge = document.getElementById('calcMemIndicator');
+            if (cMemory !== 0) memBadge.classList.remove('hidden');
+            else memBadge.classList.add('hidden');
+        }
+
+        function calcDigit(d) {
+            if (cCurrent === "Xato" || cCurrent === "0 ga bo'linmaydi") cCurrent = "0";
+            if (cWaitNew) {
+                cCurrent = d;
+                cWaitNew = false;
+            } else {
+                if (cCurrent.replace('-', '').replace('.', '').length >= 14) return;
+                cCurrent = cCurrent === "0" ? d : cCurrent + d;
+            }
+            updateCalcDisplay();
+        }
+
+        function calcDot() {
+            if (cWaitNew) {
+                cCurrent = "0.";
+                cWaitNew = false;
+            } else if (!cCurrent.includes('.')) {
+                cCurrent += '.';
+            }
+            updateCalcDisplay();
+        }
+
+        function calcClearEntry() {
+            cCurrent = "0";
+            updateCalcDisplay();
+        }
+
+        function calcClearAll() {
+            cCurrent = "0";
+            cPrev = null;
+            cOp = null;
+            cWaitNew = false;
+            updateCalcDisplay("");
+        }
+
+        function calcBackspace() {
+            if (cWaitNew || cCurrent === "Xato" || cCurrent === "0 ga bo'linmaydi") return;
+            cCurrent = cCurrent.length > 1 ? cCurrent.slice(0, -1) : "0";
+            if (cCurrent === "-") cCurrent = "0";
+            updateCalcDisplay();
+        }
+
+        function getOpSymbol(op) {
+            return op === '/' ? '÷' : op === '*' ? '×' : op === '-' ? '−' : '+';
+        }
+
+        function computeBinary(a, b, op) {
+            if (op === '+') return a + b;
+            if (op === '-') return a - b;
+            if (op === '*') return a * b;
+            if (op === '/') return b === 0 ? "0 ga bo'linmaydi" : a / b;
+            return b;
+        }
+
+        function calcSetOp(op) {
+            const val = parseFloat(cCurrent);
+            if (isNaN(val)) return;
+            if (cPrev !== null && cOp && !cWaitNew) {
+                const res = computeBinary(cPrev, val, cOp);
+                if (typeof res === "string") {
+                    cCurrent = res;
+                    cPrev = null;
+                    cOp = null;
+                    updateCalcDisplay("");
                     return;
                 }
-                const res = Function(`"use strict"; return (${raw})`)();
-                document.getElementById('calcExprOutput').textContent = `Natija: ${Number(res.toFixed(4))}`;
-            } catch(e) {
-                document.getElementById('calcExprOutput').textContent = "Ifodada xatolik";
+                cPrev = Number(res.toFixed(10));
+                cCurrent = String(cPrev);
+            } else {
+                cPrev = val;
             }
+            cOp = op;
+            cWaitNew = true;
+            updateCalcDisplay(`${formatCalcNumber(String(cPrev))} ${getOpSymbol(op)}`);
         }
+
+        function calcEquals() {
+            if (cPrev === null || !cOp) return;
+            const val = parseFloat(cCurrent);
+            if (isNaN(val)) return;
+            const res = computeBinary(cPrev, val, cOp);
+            const hist = `${formatCalcNumber(String(cPrev))} ${getOpSymbol(cOp)} ${formatCalcNumber(String(val))} =`;
+            if (typeof res === "string") {
+                cCurrent = res;
+            } else {
+                cCurrent = String(Number(res.toFixed(10)));
+            }
+            cPrev = null;
+            cOp = null;
+            cWaitNew = true;
+            updateCalcDisplay(hist);
+        }
+
+        function calcUnary(type) {
+            const val = parseFloat(cCurrent);
+            if (isNaN(val)) return;
+            let res = val;
+            let hist = "";
+
+            if (type === 'sign') {
+                res = -val;
+            } else if (type === 'sqr') {
+                res = val * val;
+                hist = `sqr(${formatCalcNumber(String(val))})`;
+            } else if (type === 'sqrt') {
+                if (val < 0) { cCurrent = "Xato"; updateCalcDisplay(); return; }
+                res = Math.sqrt(val);
+                hist = `√(${formatCalcNumber(String(val))})`;
+            } else if (type === 'inv') {
+                if (val === 0) { cCurrent = "0 ga bo'linmaydi"; updateCalcDisplay(); return; }
+                res = 1 / val;
+                hist = `1/(${formatCalcNumber(String(val))})`;
+            } else if (type === 'percent') {
+                res = cPrev !== null ? (cPrev * val) / 100 : val / 100;
+            }
+
+            cCurrent = String(Number(res.toFixed(10)));
+            cWaitNew = true;
+            updateCalcDisplay(hist || undefined);
+        }
+
+        function calcMem(action) {
+            const val = parseFloat(cCurrent) || 0;
+            if (action === 'MC') cMemory = 0;
+            else if (action === 'MR') { cCurrent = String(cMemory); cWaitNew = true; }
+            else if (action === 'M+') { cMemory += val; cWaitNew = true; }
+            else if (action === 'M-') { cMemory -= val; cWaitNew = true; }
+            else if (action === 'MS') { cMemory = val; cWaitNew = true; }
+            updateCalcDisplay();
+        }
+
+        // Kompyuter klaviaturasini ham qo'llab-quvvatlash
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('calcModal').classList.contains('hidden')) return;
+            if (e.key >= '0' && e.key <= '9') calcDigit(e.key);
+            else if (e.key === '.' || e.key === ',') calcDot();
+            else if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') calcSetOp(e.key);
+            else if (e.key === 'Enter' || e.key === '=') { e.preventDefault(); calcEquals(); }
+            else if (e.key === 'Backspace') calcBackspace();
+            else if (e.key === 'Escape') closeCalcModal();
+        });
 
         // Boshlang'ich yuklash
         applyPremiumUIState();
