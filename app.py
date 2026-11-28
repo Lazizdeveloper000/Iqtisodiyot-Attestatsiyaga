@@ -4,11 +4,11 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.utils import executor
 
 # 1. BotFather'dan olgan tokeningizni shu yerga yozasiz
-BOT_TOKEN = "SIZNING_BOT_TOKENINGIZNI_SHU_YERGA_YOZING"
+BOT_TOKEN = "9290641376:AAG_TYekifqmDD492uyl4j9r3-CAbCrT18Y"
 
 # 2. Adminlar ID'lari (1-raqam sizniki, 2-raqam ustozingizniki)
 # O'zingiz va ustozingizning ID'sini @userinfobot orqali bilib olib, shu yerga yozasiz
-ADMIN_IDS = [123456789, 987654321]
+ADMIN_IDS = [8990585770, 987654321]
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(bot)
