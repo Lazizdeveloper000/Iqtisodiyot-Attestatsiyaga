@@ -1397,6 +1397,22 @@
         // Boshlang'ich yuklash
         applyPremiumUIState();
         syncProfileUI();
+
+
+
+        // 2. Sayt ochilishi bilan Telegram oynasini kattalashtirish
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.Telegram && window.Telegram.WebApp) {
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand(); // Oynani vertikaliga maksimal kengaytirish
+
+        // Yangi Telegram versiyalarida (Desktop va Mobile) 2-rasmdagidek to'liq ekranga o'tkazish:
+        if (tg.requestFullscreen) {
+          tg.requestFullscreen();
+        }
+      }
+    });
     </script>
 </body>
 </html>
