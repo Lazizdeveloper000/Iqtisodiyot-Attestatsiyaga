@@ -104,8 +104,13 @@
                 <button onclick="openProfileModal()" class="flex items-center gap-2.5 pl-1.5 pr-3.5 py-1 rounded-full bg-stone-100/90 dark:bg-emerald-950/70 hover:bg-emerald-50 dark:hover:bg-emerald-900/60 border border-stone-300/80 dark:border-emerald-700/50 transition-all cursor-pointer shrink-0 shadow-xs">
                     <img id="headerAvatar" src="https://ui-avatars.com/api/?name=IQ&background=0C2D22&color=34D399&bold=true" alt="Profil" style="width:32px;height:32px;min-width:32px;min-height:32px;" class="w-8 h-8 rounded-full object-cover border border-emerald-500/40 shrink-0">
                     <div class="text-left">
-                        <div id="headerUserName" class="text-xs font-extrabold text-slate-900 dark:text-white leading-none max-w-[110px] sm:max-w-[150px] truncate">
-                            Foydalanuvchi
+                        <div class="flex items-center gap-1.5">
+                            <span id="headerUserName" class="text-xs font-extrabold text-slate-900 dark:text-white leading-none max-w-[105px] sm:max-w-[140px] truncate">
+                                Foydalanuvchi
+                            </span>
+                            <span id="headerStatusBadge" class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30">
+                                Demo
+                            </span>
                         </div>
                         <div class="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1 mt-0.5">
                             <i class="ph-fill ph-chart-bar text-amber-500"></i>
@@ -159,12 +164,13 @@
     <main class="max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 flex-1">
 
         <!-- VIEW 0: HOME -->
-        <div id="view-home" class="space-y-6">
+        <div id="view-home" class="space-y-5">
+            <!-- Yashil Hero Banner -->
             <div class="hero-mesh rounded-3xl p-6 sm:p-9 text-white shadow-xl border border-emerald-500/30 relative overflow-hidden">
                 <div class="max-w-4xl space-y-4 relative z-10">
                     <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-xs border border-white/15 text-emerald-300 text-xs font-semibold">
                         <i class="ph-fill ph-seal-check text-amber-400 text-sm"></i>
-                        <span>2027-yil Rasmiy Spetsifikatsiya Asosida • 100% Bepul Platforma</span>
+                        <span>2027-yil Rasmiy Spetsifikatsiya Asosida</span>
                     </div>
 
                     <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight">
@@ -192,6 +198,22 @@
                 </div>
             </div>
 
+            <!-- SARIQ PREMIUM BANNER (Yashil banner pastida, faqat @dilshodtura1985 niki bilan) -->
+            <div id="premiumPromoBanner" class="rounded-2xl p-4 sm:px-6 sm:py-4 bg-amber-50 dark:bg-amber-950/35 border-2 border-amber-400/80 dark:border-amber-500/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 shadow-sm">
+                <div class="space-y-1">
+                    <div class="flex items-center gap-2 text-sm sm:text-base font-extrabold text-amber-950 dark:text-amber-200">
+                        <span>💎 Premium foydalanish uchun — 49 900 so'm (2027-yil iyun oyigacha)</span>
+                    </div>
+                    <p class="text-xs text-amber-900/90 dark:text-amber-300/85 leading-relaxed">
+                        📌 Yopiq guruh, yangi demo testlar va video yechimlar — barcha 21 ta mavzu, 15 ta bo'lim va 70 ta variantga to'liq kirish uchun Telegramdan <strong>@dilshodtura1985</strong> ga murojaat qiling.
+                    </p>
+                </div>
+                <a href="https://t.me/dilshodtura1985" target="_blank" class="px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs sm:text-sm font-extrabold flex items-center justify-center gap-2 shrink-0 shadow-md transition-all">
+                    <i class="ph-fill ph-paper-plane-tilt text-base"></i>
+                    <span>@dilshodtura1985</span>
+                </a>
+            </div>
+
             <!-- 3 Main Cards Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                 <!-- Card 1 -->
@@ -201,8 +223,8 @@
                             <div class="w-12 h-12 rounded-2xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
                                 <i class="ph-duotone ph-book-open-text text-2xl"></i>
                             </div>
-                            <span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 text-[11px] font-bold">
-                                🔓 Barchasi ochiq
+                            <span id="card1Badge" class="px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-500/30 text-[11px] font-bold">
+                                🔓 1-mavzu ochiq
                             </span>
                         </div>
                         <h3 class="text-lg font-extrabold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
@@ -225,8 +247,8 @@
                             <div class="w-12 h-12 rounded-2xl bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center">
                                 <i class="ph-duotone ph-target text-2xl"></i>
                             </div>
-                            <span class="px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-800 dark:text-amber-300 border border-amber-500/30 text-[11px] font-bold">
-                                🔓 1.1 – 7.1 bo'limlar
+                            <span id="card2Badge" class="px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-500/30 text-[11px] font-bold">
+                                🔓 1.1-bo'lim ochiq
                             </span>
                         </div>
                         <h3 class="text-lg font-extrabold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
@@ -249,8 +271,8 @@
                             <div class="w-12 h-12 rounded-2xl bg-teal-500/15 text-teal-700 dark:text-teal-400 flex items-center justify-center">
                                 <i class="ph-duotone ph-trophy text-2xl"></i>
                             </div>
-                            <span class="px-2.5 py-1 rounded-full bg-teal-500/10 text-teal-800 dark:text-teal-300 border border-teal-500/30 text-[11px] font-bold">
-                                🔓 70 ta bepul variant
+                            <span id="card3Badge" class="px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-500/30 text-[11px] font-bold">
+                                🔓 3 ta variant ochiq
                             </span>
                         </div>
                         <h3 class="text-lg font-extrabold text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
@@ -273,7 +295,7 @@
             <div class="neo-card p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-l-4 border-l-emerald-600">
                 <div>
                     <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">Mavzulashtirilgan 2027-yil testlari (21 ta mavzu)</h2>
-                    <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">Har bir mavzuni istalgancha qayta ishlashingiz va natijangizni yaxshilashingiz mumkin.</p>
+                    <p id="topicsSubDesc" class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">Demo rejimda 1-mavzu ochiq. Qolgan 20 ta mavzuni ochish uchun Premiumga ulaning.</p>
                 </div>
                 <button onclick="goHome()" class="px-4 py-2 rounded-xl border border-slate-300 dark:border-emerald-800 hover:bg-slate-100 dark:hover:bg-emerald-950 text-xs font-bold text-slate-700 dark:text-slate-200 shrink-0 cursor-pointer">← Ortga qaytish</button>
             </div>
@@ -285,7 +307,7 @@
             <div class="neo-card p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-l-4 border-l-amber-500">
                 <div>
                     <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">Mavzulashtirilgan attestatsiya testlari (1.1 – 7.1)</h2>
-                    <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">15 ta rasmiy spetsifikatsiya bo'limi bo'yicha testlar va yashil ko'rsatkichlar.</p>
+                    <p id="specsSubDesc" class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">Demo rejimda 1.1-bo'lim ochiq. Qolgan 14 ta bo'limni ochish uchun Premiumga ulaning.</p>
                 </div>
                 <button onclick="goHome()" class="px-4 py-2 rounded-xl border border-slate-300 dark:border-emerald-800 hover:bg-slate-100 dark:hover:bg-emerald-950 text-xs font-bold text-slate-700 dark:text-slate-200 shrink-0 cursor-pointer">← Ortga qaytish</button>
             </div>
@@ -297,7 +319,7 @@
             <div class="neo-card p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-l-4 border-l-teal-600">
                 <div>
                     <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">Attestatsiya 35 talik testlar — 70 ta variant</h2>
-                    <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">60 daqiqa taymer • Ishlangan variantlar yashil chiziq bilan to'lib boradi.</p>
+                    <p id="variantsSubDesc" class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">60 daqiqa taymer • Demo rejimda 1, 2, 3-variantlar ochiq.</p>
                 </div>
                 <button onclick="goHome()" class="px-4 py-2 rounded-xl border border-slate-300 dark:border-emerald-800 hover:bg-slate-100 dark:hover:bg-emerald-950 text-xs font-bold text-slate-700 dark:text-slate-200 shrink-0 cursor-pointer">← Ortga qaytish</button>
             </div>
@@ -335,7 +357,6 @@
                         <span class="px-3 py-1 rounded-lg bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-500/30">Ball: <span id="quizScoreCounter">0</span> ball</span>
                     </div>
                 </div>
-                <!-- Green Progress Bar -->
                 <div class="w-full h-2.5 bg-slate-200 dark:bg-emerald-950 rounded-full overflow-hidden">
                     <div id="quizGreenBar" class="h-full bg-emerald-500 transition-all duration-300 rounded-full" style="width: 0%"></div>
                 </div>
@@ -395,7 +416,7 @@
     <!-- FOOTER -->
     <footer class="bg-pineDark text-emerald-100/80 border-t border-emerald-900/40 py-4 px-4 sm:px-6 mt-10 text-xs">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-            <span>© 2027 Iqtisodiy Bilim Asoslari Platformasi — 100% Bepul va Ochiq Tizim</span>
+            <span>© 2027 Iqtisodiy Bilim Asoslari Platformasi</span>
             <div class="flex items-center gap-4 font-semibold text-emerald-300">
                 <a href="https://t.me/dilshodtura1985" target="_blank" class="hover:underline text-emerald-300 font-bold">@dilshodtura1985</a>
                 <button onclick="openProfileModal()" class="hover:underline text-amber-300 cursor-pointer">📊 Natijalarim</button>
@@ -404,7 +425,7 @@
     </footer>
 
     <!-- =====================================================
-         1. TELEFONGA 100% MOSLASHTIRILGAN "NATIJALARIM" OYNASI
+         1. "NATIJALARIM" VA PREMIUM STATUS MODAL OYNASI
          ===================================================== -->
     <div id="profileModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-xs p-3 sm:p-4 overflow-y-auto">
         <div class="bg-white dark:bg-[#0D1915] w-full max-w-sm sm:max-w-md rounded-3xl p-4 sm:p-5 border border-slate-200 dark:border-emerald-800/60 shadow-2xl space-y-4 my-auto">
@@ -413,13 +434,11 @@
                 <div class="flex items-center gap-3 min-w-0">
                     <img id="modalAvatar" src="https://ui-avatars.com/api/?name=IQ&background=0C2D22&color=34D399&bold=true" alt="Avatar" style="width:48px;height:48px;min-width:48px;min-height:48px;" class="w-12 h-12 rounded-full object-cover border-2 border-emerald-500 shadow-sm shrink-0">
                     <div class="min-w-0">
-                        <div class="flex items-center gap-2">
-                            <h3 id="modalUserName" class="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white truncate">Foydalanuvchi</h3>
-                            <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold shrink-0">
-                                🔓 Ochiq
-                            </span>
+                        <h3 id="modalUserName" class="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white truncate">Foydalanuvchi</h3>
+                        <p id="modalUserHandle" class="text-xs font-mono text-slate-500 dark:text-emerald-300/70 truncate">@username</p>
+                        <div id="modalPlanBadge" class="mt-1 inline-flex items-center px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-800 dark:text-amber-300 text-[10px] font-bold">
+                            🔒 Demo rejim (1-mavzu va 3 ta variant)
                         </div>
-                        <p id="modalUserHandle" class="text-xs font-mono text-slate-500 dark:text-emerald-300/70 truncate mt-0.5">@username</p>
                     </div>
                 </div>
                 <button onclick="closeProfileModal()" class="w-8 h-8 rounded-xl bg-stone-100 dark:bg-emerald-950 text-slate-500 hover:text-slate-800 dark:hover:text-white flex items-center justify-center shrink-0 cursor-pointer">
@@ -461,33 +480,35 @@
             </div>
 
             <!-- 3 Bo'lim Statistikasi -->
-            <div class="space-y-1.5">
-                <div class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400">Bo'limlar bo'yicha natijalar</div>
-                <div class="grid grid-cols-3 gap-2">
-                    <div class="p-2.5 sm:p-3 rounded-2xl bg-stone-100/90 dark:bg-emerald-950/60 border border-stone-200 dark:border-emerald-800/50 text-center">
-                        <div id="stat2026Count" class="text-sm sm:text-base font-extrabold text-emerald-600 dark:text-emerald-400 font-mono">0 / 21</div>
-                        <div class="text-[10px] font-bold text-slate-700 dark:text-slate-200 mt-0.5">2027-yil mavzu</div>
-                        <div id="stat2026Sub" class="text-[9px] text-slate-500 dark:text-emerald-400/80 mt-0.5">To'g'ri: 0 ta</div>
-                    </div>
-                    <div class="p-2.5 sm:p-3 rounded-2xl bg-stone-100/90 dark:bg-emerald-950/60 border border-stone-200 dark:border-emerald-800/50 text-center">
-                        <div id="statAttCount" class="text-sm sm:text-base font-extrabold text-amber-600 dark:text-amber-400 font-mono">0 / 15</div>
-                        <div class="text-[10px] font-bold text-slate-700 dark:text-slate-200 mt-0.5">Attestatsiya</div>
-                        <div id="statAttSub" class="text-[9px] text-slate-500 dark:text-emerald-400/80 mt-0.5">To'g'ri: 0 ta</div>
-                    </div>
-                    <div class="p-2.5 sm:p-3 rounded-2xl bg-stone-100/90 dark:bg-emerald-950/60 border border-stone-200 dark:border-emerald-800/50 text-center">
-                        <div id="statVarCount" class="text-sm sm:text-base font-extrabold text-teal-600 dark:text-teal-400 font-mono">0 / 70</div>
-                        <div class="text-[10px] font-bold text-slate-700 dark:text-slate-200 mt-0.5">35 talik variant</div>
-                        <div id="statVarSub" class="text-[9px] text-slate-500 dark:text-emerald-400/80 mt-0.5">To'g'ri: 0 ta</div>
-                    </div>
+            <div class="grid grid-cols-3 gap-2">
+                <div class="p-2.5 sm:p-3 rounded-2xl bg-stone-100/90 dark:bg-emerald-950/60 border border-stone-200 dark:border-emerald-800/50 text-center">
+                    <div id="stat2026Count" class="text-sm sm:text-base font-extrabold text-emerald-600 dark:text-emerald-400 font-mono">0 / 21</div>
+                    <div class="text-[10px] font-bold text-slate-700 dark:text-slate-200 mt-0.5">2027-yil mavzu</div>
+                    <div id="stat2026Sub" class="text-[9px] text-slate-500 dark:text-emerald-400/80 mt-0.5">To'g'ri: 0 ta</div>
+                </div>
+                <div class="p-2.5 sm:p-3 rounded-2xl bg-stone-100/90 dark:bg-emerald-950/60 border border-stone-200 dark:border-emerald-800/50 text-center">
+                    <div id="statAttCount" class="text-sm sm:text-base font-extrabold text-amber-600 dark:text-amber-400 font-mono">0 / 15</div>
+                    <div class="text-[10px] font-bold text-slate-700 dark:text-slate-200 mt-0.5">Attestatsiya</div>
+                    <div id="statAttSub" class="text-[9px] text-slate-500 dark:text-emerald-400/80 mt-0.5">To'g'ri: 0 ta</div>
+                </div>
+                <div class="p-2.5 sm:p-3 rounded-2xl bg-stone-100/90 dark:bg-emerald-950/60 border border-stone-200 dark:border-emerald-800/50 text-center">
+                    <div id="statVarCount" class="text-sm sm:text-base font-extrabold text-teal-600 dark:text-teal-400 font-mono">0 / 70</div>
+                    <div class="text-[10px] font-bold text-slate-700 dark:text-slate-200 mt-0.5">35 talik variant</div>
+                    <div id="statVarSub" class="text-[9px] text-slate-500 dark:text-emerald-400/80 mt-0.5">To'g'ri: 0 ta</div>
                 </div>
             </div>
 
+            <!-- Premium sotib olish tugmasi (Faqat Demo foydalanuvchilar uchun) -->
+            <a id="modalBuyPremiumBtn" href="https://t.me/dilshodtura1985" target="_blank" class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white text-xs sm:text-sm font-extrabold flex items-center justify-center gap-2 shadow-md transition-all">
+                <span>💎 Premium ulanish (49 900 so'm) — @dilshodtura1985</span>
+            </a>
+
             <!-- Action Buttons -->
-            <div class="flex items-center gap-2 pt-1">
+            <div class="flex items-center gap-2">
                 <button onclick="resetAllUserStats()" class="px-3 py-2.5 rounded-xl border border-rose-300 dark:border-rose-800/70 hover:bg-rose-50 dark:hover:bg-rose-950/50 text-rose-600 dark:text-rose-400 text-xs font-bold transition-all cursor-pointer">
                     Tozalash
                 </button>
-                <button onclick="closeProfileModal()" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-pineDark to-pineMid hover:from-emerald-800 hover:to-emerald-700 text-white text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-md">
+                <button onclick="closeProfileModal()" class="flex-1 py-2.5 rounded-xl bg-pineDark hover:bg-pineMid text-white text-xs sm:text-sm font-bold transition-all cursor-pointer">
                     Yopish
                 </button>
             </div>
@@ -495,7 +516,35 @@
     </div>
 
     <!-- =====================================================
-         2. KALKULYATOR MODAL
+         2. QULFLANGAN BO'LIM UCHUN PREMIUM OGOHLANTIRISH MODAL
+         ===================================================== -->
+    <div id="lockedModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-xs p-4">
+        <div class="bg-white dark:bg-[#0D1915] w-full max-w-sm rounded-3xl p-6 border-2 border-amber-500/50 shadow-2xl text-center space-y-4">
+            <div class="w-14 h-14 rounded-2xl bg-amber-500/15 text-amber-500 flex items-center justify-center text-3xl mx-auto">
+                🔒
+            </div>
+            <div>
+                <h3 id="lockedTitle" class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">Ushbu bo'lim yopiq</h3>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
+                    Barcha <strong>21 ta mavzu</strong>, <strong>15 ta spetsifikatsiya bo'limi</strong> va <strong>70 ta variantni</strong> ochish uchun Premium obunani faollashtiring (<strong>49 900 so'm</strong>).
+                </p>
+            </div>
+            <div class="p-3 rounded-xl bg-stone-100 dark:bg-emerald-950/70 text-[11px] font-mono text-slate-600 dark:text-emerald-300">
+                Sizning Telegram ID / Nik: <strong id="lockedUserInfo">@user</strong><br>
+                <span class="text-[10px] opacity-80">(To'lovdan so'ng shu nikni @dilshodtura1985 ga yuboring)</span>
+            </div>
+            <a href="https://t.me/dilshodtura1985" target="_blank" class="w-full py-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs sm:text-sm font-extrabold flex items-center justify-center gap-2 shadow-md transition-all">
+                <i class="ph-fill ph-paper-plane-tilt text-base"></i>
+                <span>@dilshodtura1985 ga yozish</span>
+            </a>
+            <button onclick="closeLockedModal()" class="w-full py-2.5 rounded-xl bg-stone-200 dark:bg-emerald-950 text-slate-700 dark:text-slate-300 text-xs font-bold cursor-pointer">
+                Yopish
+            </button>
+        </div>
+    </div>
+
+    <!-- =====================================================
+         3. KALKULYATOR MODAL
          ===================================================== -->
     <div id="calcModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-xs p-4">
         <div class="bg-white dark:bg-[#0D1915] w-full max-w-md rounded-3xl p-5 border border-slate-200 dark:border-emerald-800 shadow-2xl space-y-4">
@@ -513,7 +562,17 @@
 
     <script>
         // =========================================================================
-        // ★★★ SAVOLLAR BAZASI (YANGI SAVOLLARNI SHU YERGA QO'SHASIZ) ★★★
+        // ★★★ 1. PREMIUM FOYDALANUVCHILAR RO'YXATI (TO'LOV QILGANLAR SHU YERGA) ★★★
+        // =========================================================================
+        // To'lov qilgan mijozning Telegram @username (belgisiz) yoki ID raqamini qo'shing:
+        const PREMIUM_FOYDALANUVCHILAR = [
+            "dilshodtura1985",
+            "namuna_user123",
+            "123456789"
+        ];
+
+        // =========================================================================
+        // ★★★ 2. SAVOLLAR BAZASI (YANGI SAVOLLARNI SHU YERGA QO'SHASIZ) ★★★
         // =========================================================================
         const SAVOLLAR_BAZASI = [
             {
@@ -558,7 +617,7 @@
         ];
 
         // =====================================================
-        // 1. OQ / QORA GRADIENT REJIM BOSHQARUVI
+        // 3. OQ / QORA GRADIENT REJIM BOSHQARUVI
         // =====================================================
         function initTheme() {
             const savedTheme = localStorage.getItem('iq_theme_mode') || 'dark';
@@ -587,12 +646,14 @@
         initTheme();
 
         // =====================================================
-        // 2. TELEGRAM PROFIL VA PROGRESS SAQLASH
+        // 4. TELEGRAM PROFIL VA PREMIUM TEKSHIRUVI
         // =====================================================
         const tgApp = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
         let tgUser = {
+            id: "",
+            username: "",
             name: "Foydalanuvchi",
-            handle: "@telegram_user",
+            handle: "@mehmon",
             avatar: "https://ui-avatars.com/api/?name=IQ&background=0C2D22&color=34D399&bold=true"
         };
 
@@ -601,9 +662,38 @@
             tgApp.expand();
             if (tgApp.initDataUnsafe && tgApp.initDataUnsafe.user) {
                 const u = tgApp.initDataUnsafe.user;
+                tgUser.id = String(u.id || "");
+                tgUser.username = (u.username || "").toLowerCase();
                 tgUser.name = [u.first_name, u.last_name].filter(Boolean).join(" ") || "Foydalanuvchi";
                 tgUser.handle = u.username ? `@${u.username}` : `ID: ${u.id}`;
                 tgUser.avatar = u.photo_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(tgUser.name)}&background=0C2D22&color=34D399&bold=true`;
+            }
+        }
+
+        // Foydalanuvchi Premium ro'yxatda bormi?
+        function checkIsPremiumUser() {
+            const normalizedList = PREMIUM_FOYDALANUVCHILAR.map(item => String(item).replace('@', '').trim().toLowerCase());
+            if (tgUser.username && normalizedList.includes(tgUser.username)) return true;
+            if (tgUser.id && normalizedList.includes(tgUser.id)) return true;
+            return false;
+        }
+
+        const isPremium = checkIsPremiumUser();
+
+        function applyPremiumUIState() {
+            if (isPremium) {
+                document.getElementById('headerStatusBadge').textContent = "💎 Premium";
+                document.getElementById('headerStatusBadge').className = "px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/40";
+                document.getElementById('premiumPromoBanner').classList.add('hidden');
+                document.getElementById('card1Badge').textContent = "💎 21 ta mavzu ochiq";
+                document.getElementById('card2Badge').textContent = "💎 15 ta bo'lim ochiq";
+                document.getElementById('card3Badge').textContent = "💎 70 ta variant ochiq";
+                document.getElementById('topicsSubDesc').textContent = "Sizda Premium faol — barcha 21 ta mavzu to'liq ochiq!";
+                document.getElementById('specsSubDesc').textContent = "Sizda Premium faol — barcha 15 ta bo'lim to'liq ochiq!";
+                document.getElementById('variantsSubDesc').textContent = "Sizda Premium faol — barcha 70 ta variant to'liq ochiq!";
+                document.getElementById('modalPlanBadge').textContent = "💎 Premium rejim (Barcha testlar ochiq)";
+                document.getElementById('modalPlanBadge').className = "mt-1 inline-flex items-center px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold";
+                document.getElementById('modalBuyPremiumBtn').classList.add('hidden');
             }
         }
 
@@ -702,8 +792,22 @@
             m.classList.remove('flex');
         }
 
+        function openLockedModal(itemTitle) {
+            document.getElementById('lockedTitle').textContent = itemTitle;
+            document.getElementById('lockedUserInfo').textContent = `${tgUser.handle} ${tgUser.id ? '(ID: ' + tgUser.id + ')' : ''}`;
+            const m = document.getElementById('lockedModal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+        }
+
+        function closeLockedModal() {
+            const m = document.getElementById('lockedModal');
+            m.classList.add('hidden');
+            m.classList.remove('flex');
+        }
+
         // =====================================================
-        // 3. MAVZULAR VA BO'LIMLAR RO'YXATI
+        // 5. MAVZULAR VA BO'LIMLAR RO'YXATI
         // =====================================================
         const topics21Data = [
             "1-mavzu: Iqtisodiyotga kirish. Ehtiyojlar va resurslar cheklanganligi",
@@ -748,7 +852,7 @@
         ];
 
         // =====================================================
-        // 4. KARTOCHKALARNI YASHIL PROGRESS CHIZIG'I BILAN CHIZISH
+        // 6. KARTOCHKALARNI CHIZISH (QULFLI VA OCHIQ MANTIQI BILAN)
         // =====================================================
         let activeQIndex = 0;
         let activeQuizKey = 'topic_0';
@@ -780,13 +884,36 @@
             showOnlyView('view-home');
         }
 
-        function buildProgressCardHTML(key, title) {
+        function buildProgressCardHTML(key, title, isUnlocked) {
             const p = getCardProgress(key);
             const pct = p.total > 0 ? Math.min(100, Math.round((p.solved / p.total) * 100)) : 0;
             const isFull = p.solved >= p.total && p.total > 0;
-            const actionLabel = isFull ? "Qayta ishlash →" : (p.solved > 0 ? "Davom etish →" : "Boshlash →");
             const safeTitle = title.replace(/'/g, "\\'");
 
+            if (!isUnlocked) {
+                return `
+                    <div onclick="openLockedModal('${safeTitle}')" class="neo-card p-5 flex flex-col justify-between gap-4 cursor-pointer group opacity-90 hover:border-amber-500">
+                        <div class="flex items-start justify-between gap-3">
+                            <h4 class="text-sm font-extrabold text-slate-700 dark:text-slate-300 group-hover:text-amber-500 leading-snug">
+                                🔒 ${title}
+                            </h4>
+                            <div class="w-14 h-14 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-700 dark:text-amber-300 flex flex-col items-center justify-center shrink-0 text-[10px] font-extrabold leading-tight">
+                                <span>🔒</span>
+                                <span>Premium</span>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden"></div>
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="text-slate-400 font-semibold">Ishlangan: 0 / ${p.total} (To'g'ri: 0)</span>
+                                <span class="font-extrabold text-amber-600 dark:text-amber-400">Ochish →</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            const actionLabel = isFull ? "Qayta ishlash →" : (p.solved > 0 ? "Davom etish →" : "Boshlash →");
             return `
                 <div onclick="startQuiz('${key}', '${safeTitle}')" class="neo-card p-5 flex flex-col justify-between gap-4 cursor-pointer group ${isFull ? 'border-emerald-500/70' : ''}">
                     <div class="flex items-start justify-between gap-3">
@@ -821,21 +948,42 @@
         function openSection(sec) {
             lastSection = sec;
             if (sec === 'topics') {
+                // Faqat 1-mavzu (idx === 0) ochiq, qolganlari Premium bo'lmasa qulf
                 document.getElementById('topicsGrid').innerHTML = topics21Data.map((title, idx) =>
-                    buildProgressCardHTML(`topic_${idx}`, title)
+                    buildProgressCardHTML(`topic_${idx}`, title, isPremium || idx === 0)
                 ).join('');
                 showOnlyView('view-topics');
             } else if (sec === 'specs') {
+                // Faqat 1.1-bo'lim (idx === 0) ochiq, qolganlari Premium bo'lmasa qulf
                 document.getElementById('specsGrid').innerHTML = specs15Data.map((title, idx) =>
-                    buildProgressCardHTML(`spec_${idx}`, title)
+                    buildProgressCardHTML(`spec_${idx}`, title, isPremium || idx === 0)
                 ).join('');
                 showOnlyView('view-specs');
             } else if (sec === 'variants') {
+                // Faqat 1, 2, 3-variantlar (i < 3) ochiq, qolganlari Premium bo'lmasa qulf
                 document.getElementById('variantsGrid').innerHTML = Array.from({length: 70}, (_, i) => {
                     const key = `var_${i + 1}`;
                     const p = getCardProgress(key);
                     const pct = p.total > 0 ? Math.min(100, Math.round((p.solved / p.total) * 100)) : 0;
                     const isFull = p.solved >= p.total && p.total > 0;
+                    const unlocked = isPremium || i < 3;
+
+                    if (!unlocked) {
+                        return `
+                            <div onclick="openLockedModal('${i+1}-variant (Attestatsiya 35 talik)')" class="neo-card p-4 flex flex-col justify-between gap-2.5 cursor-pointer group opacity-85 hover:border-amber-500">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-extrabold text-slate-600 dark:text-slate-400">🔒 ${i+1}-variant</span>
+                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-300">Premium</span>
+                                </div>
+                                <div class="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full"></div>
+                                <div class="flex items-center justify-between text-[10px] font-bold">
+                                    <span class="text-slate-400">0/${p.total}</span>
+                                    <span class="text-amber-600 dark:text-amber-400">Ochish →</span>
+                                </div>
+                            </div>
+                        `;
+                    }
+
                     return `
                         <div onclick="startQuiz('${key}', '${i+1}-variant (Attestatsiya 35 talik)')" class="neo-card p-4 flex flex-col justify-between gap-2.5 cursor-pointer group ${isFull ? 'border-emerald-500/80' : ''}">
                             <div class="flex items-center justify-between">
@@ -857,7 +1005,7 @@
         }
 
         // =====================================================
-        // 5. TEST YECHISH VA QAYTADAN BOSHLASH TIZIMI
+        // 7. TEST YECHISH VA QAYTADAN BOSHLASH TIZIMI
         // =====================================================
         function startQuiz(key, title) {
             activeQuizKey = key;
@@ -1003,7 +1151,7 @@
         function prevQuizQ() { activeQIndex = (activeQIndex - 1 + SAVOLLAR_BAZASI.length) % SAVOLLAR_BAZASI.length; renderActiveQuestion(); }
 
         // =====================================================
-        // 6. KALKULYATOR
+        // 8. KALKULYATOR
         // =====================================================
         function openCalcModal() { document.getElementById('calcModal').classList.remove('hidden'); document.getElementById('calcModal').classList.add('flex'); }
         function closeCalcModal() { document.getElementById('calcModal').classList.add('hidden'); document.getElementById('calcModal').classList.remove('flex'); }
@@ -1022,6 +1170,7 @@
         }
 
         // Boshlang'ich yuklash
+        applyPremiumUIState();
         syncProfileUI();
     </script>
 </body>
